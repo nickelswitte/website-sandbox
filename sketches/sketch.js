@@ -1,7 +1,8 @@
 function setup() {
   // put setup code here
-	createCanvas(500, 500);
-
+	var c = createCanvas(500, 500);
+	c.parent = ("p501");
+	c.style('display', 'block');
 	
 
 	noCursor();
