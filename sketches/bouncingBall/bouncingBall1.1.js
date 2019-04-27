@@ -14,11 +14,27 @@ const bouncingBallConst = (p) => {
     let y;
 
     //Other properties of the ball
-    let speed = 2;
+    let speed = 5;
 
-    //Vectors of the circle
-    let vectorX = 1;
-    let vectorY = 1;
+    /**
+     * These are the vector components of the circle
+     * They act like normal math vectors.
+     * 
+     * They are always normed to a length of one in order
+     * to have a seperate speed variable. That is why it is
+     * divided by the squareroot of 2.
+     */
+    let vectorX = 1 / Math.sqrt(2);
+    let vectorY = 1 / Math.sqrt(2);
+
+    /**
+     * Those variables are for storing that the circle changed
+     * direction when it hit a wall. When it hit it too deep
+     * it would get stuck, because it would change directions
+     * on every frame. These variables prevent that
+     */
+    let startedCorrectionX = false;
+    let startedCorrectionY = false;
     
     //size of the circle
     let circleWidth = 50;
@@ -59,19 +75,7 @@ const bouncingBallConst = (p) => {
         //Make the fill color for the ball white
         p.fill(255);
     
-        //Change x direction when hitting the sides
-        if ( ((x + circleWidth / 2) >= p.width) ||
-            ((x - circleWidth / 2) <= 0)
-        ) {
-            vectorX *= -1;
-        }
-
-        //change y direction when hitting top or bottom
-        if (((y + circleWidth / 2) >= p.height) ||
-            ((y - circleWidth / 2) <= 0)
-        ) {
-            vectorY *= -1;
-        } 
+        p.checkForCollision(0, p.width, 0, p.height);
 
         //Moving x, depending on direction
         x += vectorX * speed;
@@ -81,7 +85,55 @@ const bouncingBallConst = (p) => {
         p.ellipse(x, y, circleWidth);
         
         p.printInformation(10, 20);
+
+        //p.setDirectionTo(p.mouseX, p.mouseY);
     };
+
+
+    /**
+     * This method will check for collision with rectangle borders
+     */
+    p.checkForCollision = function(minX, maxX, minY, maxY) {
+        //Change x direction when hitting the sides
+        if ((
+            //When outside or touching the borders initialize change 
+            //direction
+            ((x + circleWidth / 2) >= maxX) ||
+            ((x - circleWidth / 2) <= minX)) 
+            && startedCorrectionX == false) 
+        {
+
+            startedCorrectionX = true;
+            vectorX *= -1;
+
+        } else if ((
+            //When back inside, end the direction change
+            ((x + circleWidth / 2) < maxX) &&
+            ((x - circleWidth / 2) > minX))
+            && startedCorrectionX == true)
+        {
+            startedCorrectionX = false;
+        }
+
+        //change y direction when hitting top or bottom
+        if ((
+            ((y + circleWidth / 2) >= maxY) ||
+            ((y - circleWidth / 2) <= minY)) 
+            && startedCorrectionY == false) 
+        {
+
+            startedCorrectionY = true;
+            vectorY *= -1;
+            
+        } else if ((
+            //When back inside, end the direction change
+            ((y + circleWidth / 2) < maxY) &&
+            ((y - circleWidth / 2) > minY))
+            && startedCorrectionY == true)
+        {
+            startedCorrectionY = false;    
+        }
+    }
 
     /**
      * This method prints information about the circle
@@ -98,8 +150,27 @@ const bouncingBallConst = (p) => {
         p.text('vectorY: ' + vectorY, textX, textY + 3 * textLineWidth);
 
         p.text('speed: ' + speed, textX, textY + 4 * textLineWidth);
-    }
 
+        p.text('Things to do: Click, K, L', textX, textY + 5 * textLineWidth);
+    };
+
+
+    /**
+     * This method makes the circle go in the direction of the coordinates 
+     * given
+     */
+    p.setDirectionTo = function(pointX, pointY) {
+        let differenceX = pointX - x;
+        let differenceY = pointY - y;
+
+        let differenceLength = Math.sqrt(
+            Math.pow(differenceX, 2) +
+            Math.pow(differenceY, 2) 
+        );
+
+        vectorX = differenceX / differenceLength;
+        vectorY = differenceY / differenceLength;
+    };
 
     //Change direction on mouse click
     p.mousePressed = function() {
@@ -109,8 +180,7 @@ const bouncingBallConst = (p) => {
             (p.mouseX >= 0 && p.mouseX <= p.width) &&
             (p.mouseY >= 0 && p.mouseY <= p.height)
         ) {
-            vectorX *= -1;
-            vectorY *= -1;
+            p.setDirectionTo(p.mouseX, p.mouseY);
         }
         
     };
