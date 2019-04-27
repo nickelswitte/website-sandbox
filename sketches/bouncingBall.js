@@ -1,96 +1,104 @@
-let x;
-let y;
+const bouncingBallConst = (p) => {
 
-let circleSpeed = 5;
-let circleWidth = 50;
-let backgroundColors;
-let backgroundColor;
+    let x;
+    let y;
 
-let xDirectionRight = true;
-let yDirectionDown = true;
+    let circleSpeed = 5;
+    let circleWidth = 50;
+    let backgroundColors;
+    let backgroundColor;
 
-function setup() {
-    // put setup code here
-    var c = createCanvas(600, 500);
-    c.parent("p502");
-    c.style('display', 'block');
+    let xDirectionRight = true;
+    let yDirectionDown = true;
 
-    noStroke();
-    frameRate(60);
+    p.setup = function() {
+        // put setup code here
+        var c = p.createCanvas(800, 400);
+        c.parent("p502");
+        //c.style('display', 'block');
 
-    backgroundColors = [
-        color(0, 127, 255), 
-        color(255, 127, 0), 
-        color(127, 0, 255), 
-        color(255, 0, 127)
-    ];
+        p.noStroke();
+        p.frameRate(60);
 
-    x = random(0, width);
-    y = random(0, height);
+        backgroundColors = [
+            p.color(0, 127, 255), 
+            p.color(255, 127, 0), 
+            p.color(127, 0, 255), 
+            p.color(255, 0, 127)
+        ];
 
-    backgroundColor = backgroundColors[0];
-}
-  
-function draw() {
+        x = p.random(0, p.width);
+        y = p.random(0, p.height);
 
-    background(backgroundColor);
-
-    fill(255);
-  
-    //Change x direction when hitting the sides
-    if ( (x + circleWidth / 2) >= width) {
-        xDirectionRight = false;
-
-        changeBackground();
-    } else if ( (x - circleWidth / 2) <= 0) {
-        xDirectionRight = true;
-
-        changeBackground();
-    }
-
-    //change y direction when hitting top or bottom
-    if ( (y + circleWidth / 2) >= height) {
-        yDirectionDown = false;
-
-        changeBackground();
-    } else if ( (y - circleWidth / 2) <= 0) {
-        yDirectionDown = true;
-
-        changeBackground();
-    }
-
-    //Moving x, depending on direction
-    if (xDirectionRight) {
-        x += circleSpeed;
-    } else {
-        x -= circleSpeed;
-    }
+        backgroundColor = backgroundColors[0];
+    };
     
-    //Moving y depending on direction
-    if (yDirectionDown) {
-        y += circleSpeed;
-    } else {
-        y -= circleSpeed;
-    }
+    p.draw = function() {
+
+        p.background(backgroundColor);
+
+        p.fill(255);
     
-    ellipse(x, y, circleWidth);
-}
+        //Change x direction when hitting the sides
+        if ( (x + circleWidth / 2) >= p.width) {
+            xDirectionRight = false;
 
-//Change direction on mouse click
-function mousePressed() {
+            p.changeBackground();
+        } else if ( (x - circleWidth / 2) <= 0) {
+            xDirectionRight = true;
 
-    //only cound clicks inside the canvas
-    if (
-        (mouseX >= 0 && mouseX <= width) &&
-        (mouseY >= 0 && mouseY <= height)
-    ) {
-        xDirectionRight = !xDirectionRight;
-        yDirectionDown = !yDirectionDown;
-    }
-    
-}
+            p.changeBackground();
+        }
 
-//Pick random color background
-function changeBackground() {
-    backgroundColor = random(backgroundColors);
-}
+        //change y direction when hitting top or bottom
+        if ( (y + circleWidth / 2) >= p.height) {
+            yDirectionDown = false;
+
+            p.changeBackground();
+        } else if ( (y - circleWidth / 2) <= 0) {
+            yDirectionDown = true;
+
+            p.changeBackground();
+        }
+
+        //Moving x, depending on direction
+        if (xDirectionRight) {
+            x += circleSpeed;
+        } else {
+            x -= circleSpeed;
+        }
+        
+        //Moving y depending on direction
+        if (yDirectionDown) {
+            y += circleSpeed;
+        } else {
+            y -= circleSpeed;
+        }
+        
+        p.ellipse(x, y, circleWidth);
+    };
+
+    //Change direction on mouse click
+    p.mousePressed = function() {
+
+        //only cound clicks inside the canvas
+        if (
+            (p.mouseX >= 0 && p.mouseX <= p.width) &&
+            (p.mouseY >= 0 && p.mouseY <= p.height)
+        ) {
+            xDirectionRight = !xDirectionRight;
+            yDirectionDown = !yDirectionDown;
+        }
+        
+    };
+
+    //Pick random color background
+    p.changeBackground = function() {
+        backgroundColor = p.random(backgroundColors);
+    };
+
+
+};
+
+
+let bouncingBallSketch = new p5(bouncingBallConst);
