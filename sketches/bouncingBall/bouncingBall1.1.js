@@ -267,6 +267,14 @@ const bouncingBallConst = (p) => {
      */
     p.keyPressed = function() {
 
+        //Only listen for key presses when mouse is inside
+        if (
+            (p.mouseX < 0 || p.mouseX > p.width) ||
+            (p.mouseY < 0 || p.mouseY > p.height)
+        ) {
+            return;
+        }
+
         if (p.key == ' ') {
             // Toggle mechanism for pausing the circle
             if (speed != 0) {
