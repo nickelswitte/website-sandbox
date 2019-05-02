@@ -3,15 +3,17 @@
  * DVD logo back on old tv's that bounces around the
  * screen.
  * 
+ * It incorporated a bouncingBall object and lets you
+ * spawn as many as you wish.
+ * 
  * Author:  Nickels Witte
- * Date:    28.04.2019
- * Version: 1.1
+ * Date:    02.05.2019
+ * Version: 1.2
  */
 const bouncingBallConst = (p) => {
 
+    //The array of balls to be displayed
     let balls = [];
-
-    let i;
 
     //This will be calles on start
     p.setup = function() {
@@ -24,10 +26,8 @@ const bouncingBallConst = (p) => {
         //Make it smooth
         p.frameRate(60);
 
-        //balls = new Array[10];
-
-        for (i = 0; i < 50; ++i) {
-            balls[i] = new BouncingBall(-1, -1, 50, 2);
+        for (let i = 0; i < 100; ++i) {
+            balls[i] = new BouncingBall(-1, -1, 15, 2);
         }
 
     };
@@ -45,15 +45,17 @@ const bouncingBallConst = (p) => {
 
     
 
-    //Change direction on mouse click
+    
     p.mousePressed = function() {
+        //Only when clicked on the canvas
         if (
             (p.mouseX >= 0 && p.mouseX <= p.width) &&
             (p.mouseY >= 0 && p.mouseY <= p.height)
         ) {
 
+            //Change direction on mouse click
             balls.forEach(function(e) {
-                e.followMouse = (e.followMouse == false);
+                e.toggleFollowMouse();
             });
         }
     };
@@ -71,6 +73,7 @@ const bouncingBallConst = (p) => {
             return;
         }
 
+        //When pressed space, toggle the speed 
         if (p.key == ' ') {
             balls.forEach(function(e) {
                 e.toggleSpeed();

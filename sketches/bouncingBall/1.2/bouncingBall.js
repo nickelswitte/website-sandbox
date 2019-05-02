@@ -1,33 +1,55 @@
+
+
+/**
+ * This is the class for the bouncing ball.
+ * It has coordinates, speed, direction vectors, etc.
+ * It lets you create as many balls as you wish.
+ * 
+ * Author:  Nickels Witte
+ * Date:    02.05.2019
+ * Version: 1.2
+ */
 class BouncingBall {
 
-    constructor(x, y, circleWidth, circleSpeed) {
+    constructor(x, y, circleWidth, circleSpeed, color) {
 
-        //bbS.print(x + " " + y + " " + circleWidth + " " + circleSpeed);
-
+        // Width of the ball
         if (circleWidth === undefined) {
             this.width = 50;
         } else {
             this.width = circleWidth;
         }
 
+        // Speed of the ball
         if (circleSpeed === undefined) {
             this.speed = 5;
+            //Backup variable is necessary for restoring on toggleSpeed
             this.speedBackup = this.speed;
         } else {
             this.speed = circleSpeed;
             this.speedBackup = this.speed;
         }
         
+        // X-Coordinate
         if (x === undefined || x === -1) {
             this.x = bbS.random(this.width, bbS.width - this.width);
         } else {
             this.x = x;
         }
         
+        // Y-Coordinate
         if (y === undefined || y == -1) {
             this.y = bbS.random(this.width, bbS.height - this.width);
         } else {
             this.y = y;
+        }
+
+        // Color of the
+        if (color === undefined) {
+            let colorValue = bbS.map(bbS.random(), 0, 1, 150, 255);
+            this.color = colorValue;
+        } else {
+            this.color = color;
         }
 
         
@@ -36,46 +58,66 @@ class BouncingBall {
          * These are the vector components of the circle
          * They act like normal math vectors.
          * 
-         * They are always normed to a length of one in order
-         * to have a seperate speed variable. That is why it is
-         * divided by the squareroot of 2.
+         * They are always normed to a length of 1.0 in order
+         * to not change speed (it has its own variable). 
          */
         this.vectorX = 1 / Math.sqrt(2);
         this.vectorY = 1 / Math.sqrt(2);
 
-        this.vectorX = Math.round(bbS.random(0, 1)) == 0 ? this.vectorX * (-1) : this.vectorX;
-        this.vectorY = Math.round(bbS.random(0, 1)) == 0 ? this.vectorY * (-1) : this.vectorY;
+        //Now the direction is random
+        this.vectorX = Math.round(bbS.random(0, 1)) == 0 ? this.vectorX * 
+        (-1) : this.vectorX;
 
+        this.vectorY = Math.round(bbS.random(0, 1)) == 0 ? this.vectorY * 
+        (-1) : this.vectorY;
+
+        //Set the booleans to false, as it is not correcting on spawn
         this.startedCorrectionX = false;
         this.startedCorrectionY = false;
 
+        //Also follow mouse should not be turned to true on start
         this.followMouse = false;
     }
 
+    /**
+     * This method will be called every time the canvas is drawn.
+     * It will do the inportant stuff to the ball like drawing the
+     * shape, moving the coordinates, etc.
+     */
     draw() {
-        //Make the fill color for the ball white
+        // Save current draw settings of canvas
+        bbS.push();
+
+        // check for collision with walls and change direction if necessary
+        this.checkForBorderCollision(0, bbS.width, 0, bbS.height);
+
+        // chance direction every frame so it follows all the time
+        this.attemptToFollowMouse();
+
+        // Decide what to do depending on followMouse
         if (this.followMouse) {
-            bbS.fill('#c34a36');
+            // Color the ball in a shade of red
+            bbS.fill(this.color, 0, 0);
+            
+            // Make it speed up
+            this.speed += this.speedBackup * 0.02;
+
+            // Check if ball and mouse collide
+            this.checkForMouseCollision();
         } else {
-            bbS.fill(255);
+            // Color it with the normal color and do nothing special
+            bbS.fill(this.color);
         }
 
-        //check for collision with walls and change direction
-        this.checkForBorderCollision(0, bbS.width, 0, bbS.height);
-        this.checkForMouseCollision();
-
-        //Moving x, depending on direction
+        //Calculate new coordinates
         this.x += this.vectorX * this.speed;
         this.y += this.vectorY * this.speed;
     
         //Finally draw the ellipse
         bbS.ellipse(this.x, this.y, this.width);
-        //bbS.print(this.x + " " + this.y + " " + this.width + " " + this.speed);
 
-        //printInformation(10, 20);
-
-        //chance direction every frame so it follows all the time
-        this.attemptToFollowMouse();
+        //Delete the changed draw settings
+        bbS.pop();
     }
 
     /**
@@ -124,17 +166,16 @@ class BouncingBall {
     }
 
     /**
-     * This part will check for collision with the mouse when the follow
-     * mouse mode is activated. When there is a collision, it deactivates
+     * This method will check for collision with the mouse. 
+     * When there is a collision, it deactivates
      * the following, as it would otherwise shake under the mouse
      */
     checkForMouseCollision() {
         if (
             (Math.abs(this.x - bbS.mouseX) < 5) &&
-            (Math.abs(this.y - bbS.mouseY) < 5) &&
-            this.followMouse
+            (Math.abs(this.y - bbS.mouseY) < 5)
         ) {
-            this.followMouse = false;
+            this.toggleFollowMouse(false);
         }
     }
 
@@ -174,6 +215,10 @@ class BouncingBall {
         this.vectorY = differenceY / differenceLength;
     }
 
+    /**
+     * This method will toggle the speed of the ball. Either it will be 
+     * this.speed or not move at all.
+     */
     toggleSpeed() {
         // Toggle mechanism for pausing the circle
         if (this.speed != 0) {
@@ -184,65 +229,23 @@ class BouncingBall {
         }
     }
 
-
     /**
-     * This method prints information about the circle
+     * This method will toggle between the mode of free flowing and following
+     * the mouse.
      */
-    /*
-    p.printInformation = function(textX, textY) {
-        // First save the current draw settings
-        p.push();
-
-        p.fill(255);
-
-        let textLineWidth = 15;
-
-        p.text('X: ' + Math.round(x), textX, textY);
-
-        p.text('Y: ' + Math.round(y), textX, textY + textLineWidth);
-
-        p.text('speed: ' + speed, textX, textY + 2 * textLineWidth);
-
-        p.text('Click or press Space', textX, textY + 3 * textLineWidth);
-
-
-        /**
-         * Small visual display of the current circle vector
-         */
-        /*
-        // and change them to what we need
-        p.stroke(255);
-        p.noFill();
-
-        // The coordinates of the center of the display relative to the
-        // coordinates of the information
-        let vectorDisplayCenterX = textX + 80;
-        let vectorDisplayCenterY = textY + 5;
-
-        // Length of line and circle radius
-        let vectorDisplayLength = 15;
-
-        // Calculation of the end points of the vector needs to be done
-        let vectorEndX = vectorDisplayCenterX + vectorX * vectorDisplayLength;
-        let vectorEndY = vectorDisplayCenterY + vectorY * vectorDisplayLength;
-
-        // Draw the line of the vector
-        p.line(
-            vectorDisplayCenterX, 
-            vectorDisplayCenterY, 
-            vectorEndX, 
-            vectorEndY
-        );
+    toggleFollowMouse(followMouse) {
+        //When just called to toggle
+        if (followMouse === undefined) {
+            // Set it to opposite of current boolean so it will trigger the
+            // if or else statement below
+            followMouse = !this.followMouse;
+        } 
         
-        // Draw the ellipse as some kind of border
-        p.ellipse(
-            vectorDisplayCenterX, 
-            vectorDisplayCenterY, 
-            vectorDisplayLength * 1.8
-        );
-
-        // Delete the changed draw settings.
-        p.pop();
+        if (followMouse == true) {
+            this.followMouse = true;
+        } else {
+            this.followMouse = false;
+            this.speed = this.speedBackup;
+        }
     }
-    */
 }
