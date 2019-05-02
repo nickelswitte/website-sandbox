@@ -10,10 +10,12 @@
  * Date:    02.05.2019
  * Version: 1.2
  */
-const bouncingBallConst = (p) => {
+const ballroomConst = (p) => {
 
     //The array of balls to be displayed
     let balls = [];
+    let configs;
+    let pathToConfigs = './sketches/bouncingBall/2.0/configs.json';
 
     //This will be calles on start
     p.setup = function() {
@@ -26,17 +28,48 @@ const bouncingBallConst = (p) => {
         //Make it smooth
         p.frameRate(60);
 
-        for (let i = 0; i < 100; ++i) {
-            balls[i] = new BouncingBall(-1, -1, 15, 2);
-        }
+        //Load configs from json and trigger reset
+        loadJSON(p.setConfigs, pathToConfigs);
 
     };
+
+    /**
+     * This method is the callback for the loadJSON function.
+     * The JSON will land here as 'response'.
+     */
+    p.setConfigs = function(response) {
+        // It is saved into a variable for later use.
+        configs = response.random;
+        
+        // The reset method will be called to initiate the sketch.
+        p.reset();
+    }
+
+    /**
+     * This method will reset the sketch to its starting conditions
+     * which are defined by the configs.json that is loaded asynchronosly.
+     */
+    p.reset = function() {
+
+        // Create new empty array if there happen to be old elements inside
+        balls = [];
+
+        // Creating the balls with the config
+        for (let i = 0; i < configs.amount; ++i) {
+            balls[i] = new BouncingBall(
+                configs.x, 
+                configs.y, 
+                configs.size, 
+                configs.speed
+            );
+        }
+    }
     
     //This will be called every frame
     p.draw = function() {
 
         //Color the background with the current background color
-        p.background(127);
+        p.background(100);
 
         balls.forEach(function(e) {
             e.draw();
@@ -85,4 +118,4 @@ const bouncingBallConst = (p) => {
 };
 
 //Create the object.
-let bbS = new p5(bouncingBallConst);
+let br = new p5(ballroomConst);

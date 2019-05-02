@@ -32,21 +32,21 @@ class BouncingBall {
         
         // X-Coordinate
         if (x === undefined || x === -1) {
-            this.x = bbS.random(this.width, bbS.width - this.width);
+            this.x = br.random(this.width / 2, br.width - this.width / 2);
         } else {
             this.x = x;
         }
         
         // Y-Coordinate
         if (y === undefined || y == -1) {
-            this.y = bbS.random(this.width, bbS.height - this.width);
+            this.y = br.random(this.width / 2, br.height - this.width / 2);
         } else {
             this.y = y;
         }
 
         // Color of the
         if (color === undefined) {
-            let colorValue = bbS.map(bbS.random(), 0, 1, 150, 255);
+            let colorValue = br.map(br.random(), 0, 1, 150, 255);
             this.color = colorValue;
         } else {
             this.color = color;
@@ -65,10 +65,10 @@ class BouncingBall {
         this.vectorY = 1 / Math.sqrt(2);
 
         //Now the direction is random
-        this.vectorX = Math.round(bbS.random(0, 1)) == 0 ? this.vectorX * 
+        this.vectorX = Math.round(br.random(0, 1)) == 0 ? this.vectorX * 
         (-1) : this.vectorX;
 
-        this.vectorY = Math.round(bbS.random(0, 1)) == 0 ? this.vectorY * 
+        this.vectorY = Math.round(br.random(0, 1)) == 0 ? this.vectorY * 
         (-1) : this.vectorY;
 
         //Set the booleans to false, as it is not correcting on spawn
@@ -86,10 +86,10 @@ class BouncingBall {
      */
     draw() {
         // Save current draw settings of canvas
-        bbS.push();
+        br.push();
 
         // check for collision with walls and change direction if necessary
-        this.checkForBorderCollision(0, bbS.width, 0, bbS.height);
+        this.checkForBorderCollision(0, br.width, 0, br.height);
 
         // chance direction every frame so it follows all the time
         this.attemptToFollowMouse();
@@ -97,7 +97,7 @@ class BouncingBall {
         // Decide what to do depending on followMouse
         if (this.followMouse) {
             // Color the ball in a shade of red
-            bbS.fill(this.color, 0, 0);
+            br.fill(this.color, 0, 0);
             
             // Make it speed up
             this.speed += this.speedBackup * 0.02;
@@ -106,7 +106,7 @@ class BouncingBall {
             this.checkForMouseCollision();
         } else {
             // Color it with the normal color and do nothing special
-            bbS.fill(this.color);
+            br.fill(this.color);
         }
 
         //Calculate new coordinates
@@ -114,10 +114,10 @@ class BouncingBall {
         this.y += this.vectorY * this.speed;
     
         //Finally draw the ellipse
-        bbS.ellipse(this.x, this.y, this.width);
+        br.ellipse(this.x, this.y, this.width);
 
         //Delete the changed draw settings
-        bbS.pop();
+        br.pop();
     }
 
     /**
@@ -172,8 +172,8 @@ class BouncingBall {
      */
     checkForMouseCollision() {
         if (
-            (Math.abs(this.x - bbS.mouseX) < 5) &&
-            (Math.abs(this.y - bbS.mouseY) < 5)
+            (Math.abs(this.x - br.mouseX) < 5) &&
+            (Math.abs(this.y - br.mouseY) < 5)
         ) {
             this.toggleFollowMouse(false);
         }
@@ -191,10 +191,10 @@ class BouncingBall {
 
         //Only do this when inside the canvas
         if (
-            (bbS.mouseX >= 0 && bbS.mouseX <= bbS.width) &&
-            (bbS.mouseY >= 0 && bbS.mouseY <= bbS.height)
+            (br.mouseX >= 0 && br.mouseX <= br.width) &&
+            (br.mouseY >= 0 && br.mouseY <= br.height)
         ) {
-            this.setDirectionTo(bbS.mouseX, bbS.mouseY);
+            this.setDirectionTo(br.mouseX, br.mouseY);
         }
     }
 
