@@ -45,7 +45,7 @@ class BouncingBall {
         }
 
         // Color of the
-        if (color === undefined) {
+        if (color === undefined || color.length == 0) {
             let colorValue = br.map(br.random(), 0, 1, 150, 255);
             this.color = colorValue;
         } else {

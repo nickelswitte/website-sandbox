@@ -1,25 +1,41 @@
-{
-    "random" : {
+[
+    {
+        "name" : "Random",
         "amount" : 200,
         "x" : -1,
         "y" : -1,
         "size" : 15,
-        "speed" : 2
+        "speed" : 2,
+        "color" : ""
     },
     
-    "twentyBig" : {
+    {   
+        "name" : "Twenty Big",
         "amount" : 20,
         "x" : -1,
         "y" : -1,
         "size" : 100,
-        "speed" : 0.5
+        "speed" : 0.5,
+        "color" : ""
     },
 
-    "snow" : {
+    {
+        "name" : "Snow",
         "amount" : 500,
         "x" : -1,
         "y" : -1,
         "size" : 5,
-        "speed" : 0.5
+        "speed" : 0.5,
+        "color" : ""
+    },
+
+    {
+        "name" : "Four",
+        "amount" : 4,
+        "x" : 200,
+        "y" : 200,
+        "size" : 50,
+        "speed" : 5,
+        "color" : ""
     }
-}
+]

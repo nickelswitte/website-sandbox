@@ -14,8 +14,10 @@ const ballroomConst = (p) => {
 
     //The array of balls to be displayed
     let balls = [];
-    let configs;
+    let configArray;
     let pathToConfigs = './sketches/bouncingBall/2.0/configs.json';
+
+    let modeSelection;
 
     //This will be calles on start
     p.setup = function() {
@@ -28,8 +30,10 @@ const ballroomConst = (p) => {
         //Make it smooth
         p.frameRate(60);
 
-        //Load configs from json and trigger reset
-        loadJSON(p.setConfigs, pathToConfigs);
+        // Load configs from json and trigger reset
+        // First parameter is the callback method
+        // Second is the path to the right config file
+        loadJSON(p.onJSONLoaded, pathToConfigs);
 
     };
 
@@ -37,30 +41,55 @@ const ballroomConst = (p) => {
      * This method is the callback for the loadJSON function.
      * The JSON will land here as 'response'.
      */
-    p.setConfigs = function(response) {
+    p.onJSONLoaded = function(response) {
         // It is saved into a variable for later use.
-        configs = response.random;
-        
+        configArray = response;
+
         // The reset method will be called to initiate the sketch.
-        p.reset();
+        p.reset(configArray[0]);
+
+        modeSelection = p.createSelect();
+        modeSelection.parent("p502");
+        modeSelection.id("bbSelect");
+
+        configArray.forEach(function(e) {
+            modeSelection.option(e.name);
+        });
+
+        modeSelection.changed(function() {
+            
+            let index = document.getElementById("bbSelect").selectedIndex;
+
+            p.reset(configArray[index]);
+        })
+        
+        //modeSelection.changed(p.reset(configArray[2]));
+        
+        /*
+        var scripts = document.getElementsByTagName("script");
+        var src = scripts[scripts.length-1].src;
+        var name = scripts[scripts.length - 1].;
+        p.print(src + " " + name);
+        */
     }
 
     /**
      * This method will reset the sketch to its starting conditions
      * which are defined by the configs.json that is loaded asynchronosly.
      */
-    p.reset = function() {
+    p.reset = function(config) {
 
         // Create new empty array if there happen to be old elements inside
         balls = [];
 
         // Creating the balls with the config
-        for (let i = 0; i < configs.amount; ++i) {
+        for (let i = 0; i < config.amount; ++i) {
             balls[i] = new BouncingBall(
-                configs.x, 
-                configs.y, 
-                configs.size, 
-                configs.speed
+                config.x, 
+                config.y, 
+                config.size, 
+                config.speed,
+                config.color
             );
         }
     }
@@ -117,5 +146,10 @@ const ballroomConst = (p) => {
 
 };
 
+
+
 //Create the object.
 let br = new p5(ballroomConst);
+
+    
+
