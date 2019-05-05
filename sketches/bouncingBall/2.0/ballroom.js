@@ -10,7 +10,7 @@
  * Date:    02.05.2019
  * Version: 1.2
  */
-const ballroomConst = (p) => {
+const bbC2_0 = (p) => {
 
     //The array of balls to be displayed
     let balls = [];
@@ -22,7 +22,7 @@ const ballroomConst = (p) => {
     //This will be calles on start
     p.setup = function() {
         var c = p.createCanvas(800, 400);
-        c.parent("p502");
+        c.parent("p504");
         //c.style('display', 'block');
 
         //Make sure everything is without borders
@@ -42,6 +42,9 @@ const ballroomConst = (p) => {
      * The JSON will land here as 'response'.
      */
     p.onJSONLoaded = function(response) {
+
+        // console.log(response);
+
         // It is saved into a variable for later use.
         configArray = response;
 
@@ -49,7 +52,7 @@ const ballroomConst = (p) => {
         p.reset(configArray[0]);
 
         modeSelection = p.createSelect();
-        modeSelection.parent("p502");
+        modeSelection.parent("p504");
         modeSelection.id("bbSelect");
 
         configArray.forEach(function(e) {
@@ -89,6 +92,7 @@ const ballroomConst = (p) => {
                 config.y, 
                 config.size, 
                 config.speed,
+                config.angle,
                 config.color
             );
         }
@@ -149,7 +153,7 @@ const ballroomConst = (p) => {
 
 
 //Create the object.
-let br = new p5(ballroomConst);
+let bb2_0 = new p5(bbC2_0);
 
     
 

@@ -7,7 +7,11 @@ function loadJSON(callbackMethod, pathToFile) {
 
   xobj.overrideMimeType("application/json");
 
+  
+
   xobj.open('GET', pathToFile, true);
+
+  //xobj.setRequestHeader("Cache-Control", "max-age=0");
 
   xobj.onreadystatechange = function () {
     if (xobj.readyState == 4 && xobj.status == "200") {

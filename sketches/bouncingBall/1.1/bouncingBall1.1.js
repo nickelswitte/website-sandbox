@@ -7,7 +7,7 @@
  * Date:    28.04.2019
  * Version: 1.1
  */
-const bouncingBallConst = (p) => {
+const bbC1_1 = (p) => {
 
     //Coordinates of the ball
     let x;
@@ -46,7 +46,7 @@ const bouncingBallConst = (p) => {
     //This will be calles on start
     p.setup = function() {
         var c = p.createCanvas(800, 400);
-        c.parent("p502");
+        c.parent("p503");
         //c.style('display', 'block');
 
         //Make sure everything is without borders
@@ -290,4 +290,4 @@ const bouncingBallConst = (p) => {
 };
 
 //Create the object.
-let bouncingBallSketch = new p5(bouncingBallConst);
+let bb1_1 = new p5(bbC1_1);

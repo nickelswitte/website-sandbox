@@ -7,7 +7,7 @@
  * Date:    27.04.2019
  * Version: 1.0
  */
-const bouncingBallConst = (p) => {
+const bbC1_0 = (p) => {
 
     //Coordinates of the ball
     let x;
@@ -144,4 +144,4 @@ const bouncingBallConst = (p) => {
 };
 
 //Create the object.
-let bouncingBallSketch = new p5(bouncingBallConst);
+let bb1_0 = new p5(bbC1_0);

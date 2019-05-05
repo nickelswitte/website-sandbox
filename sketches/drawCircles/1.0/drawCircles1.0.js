@@ -47,4 +47,4 @@ const drawCirclesConst = (p) => {
 };
 
 //Creating the object
-let drawCirclesSketch = new p5(drawCirclesConst);
+let dc1_0 = new p5(drawCirclesConst);
