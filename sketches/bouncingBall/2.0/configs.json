@@ -1,20 +1,22 @@
 [
     {
         "name" : "Random",
+        "type" : "basic",
         "amount" : 200,
-        "x" : -1,
-        "y" : -1,
+        "x" : "random",
+        "y" : "random",
         "size" : 15,
         "speed" : 2,
-        "angle" : null,
+        "angle" : "random",
         "color" : ""
     },
     
     {   
         "name" : "Twenty Big",
+        "type" : "basic",
         "amount" : 20,
-        "x" : -1,
-        "y" : -1,
+        "x" : "middle",
+        "y" : "random",
         "size" : 100,
         "speed" : 0.5,
         "angle" : 10,
@@ -23,34 +25,52 @@
 
     {
         "name" : "Snow",
+        "type" : "basic",
         "amount" : 500,
-        "x" : -1,
-        "y" : -1,
+        "x" : "random",
+        "y" : "random",
         "size" : 5,
         "speed" : 0.5,
-        "angle" : null,
+        "angle" : "random",
         "color" : ""
     },
 
     {
-        "name" : "Four",
-        "amount" : 4,
-        "x" : 200,
-        "y" : 200,
-        "size" : 50,
-        "speed" : 5,
-        "angle" : null,
+        "name" : "Circle",
+        "type" : "basic",
+        "amount" : 500,
+        "x" : "middle",
+        "y" : "middle",
+        "size" : 5,
+        "speed" : 2.5,
+        "angle" : "random",
         "color" : ""
     },
 
     {
         "name" : "Single",
+        "type" : "basic",
         "amount" : 1,
         "x" : 200,
         "y" : 200,
         "size" : 50,
         "speed" : 5,
         "angle" : 360,
+        "color" : ""
+    },
+
+    {
+        "name" : "Grid",
+        "type" : "grid",
+        "m" : 20,
+        "n" : 20,
+        "minX" : 200,
+        "maxX" : 600,
+        "minY" : 100,
+        "maxY" : 300,
+        "size" : 5,
+        "speed" : 2,
+        "angle" : 45,
         "color" : ""
     }
 ]

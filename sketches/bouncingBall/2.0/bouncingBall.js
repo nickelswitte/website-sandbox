@@ -44,28 +44,32 @@ class BouncingBall {
         // Speed of the ball
         if (circleSpeed === undefined) {
             this.speed = 5;
-            //Backup variable is necessary for restoring on toggleSpeed
-            this.speedBackup = this.speed;
         } else {
             this.speed = circleSpeed;
-            this.speedBackup = this.speed;
         }
+        //Backup variable is necessary for restoring on toggleSpeed
+        this.speedBackup = this.speed;
         
         // X-Coordinate
-        if (x === undefined || x === -1) {
+        if (x === undefined || x === "random") {
             this.x = bb2_0.random(this.width / 2, bb2_0.width - this.width / 2);
+        } else if (x == "middle") {
+            this.x = bb2_0.width / 2;
         } else {
             this.x = x;
         }
         
         // Y-Coordinate
-        if (y === undefined || y == -1) {
+        if (y === undefined || y == "random") {
             this.y = bb2_0.random(this.width / 2, bb2_0.height - this.width / 2);
+        } else if (y === "middle") {
+            this.y = bb2_0.height / 2;
         } else {
             this.y = y;
         }
 
-        if (angle === undefined || angle == null) {
+        // Angle
+        if (angle === undefined || angle == "random") {
             angle = bb2_0.map(bb2_0.random(), 0, 1, 0, 360);
         }
 
@@ -74,39 +78,17 @@ class BouncingBall {
 
         // console.log(angle + " " + Math.cos(angle) + " " + Math.sin(angle))
 
+        // Set vectors from the angle 
         this.vectorX = Math.cos(angle);
         this.vectorY = Math.sin(angle);
 
-        // Color of the
+        // Color of the ball
         if (color === undefined || color.length == 0) {
             let colorValue = bb2_0.map(bb2_0.random(), 0, 1, 150, 255);
             this.color = colorValue;
         } else {
             this.color = color;
         }
-
-        
-
-        /**
-         * These are the vector components of the circle
-         * They act like normal math vectors.
-         * 
-         * They are always normed to a length of 1.0 in order
-         * to not change speed (it has its own variable). 
-         */
-        /*
-        this.vectorX = 1 / Math.sqrt(2);
-        this.vectorY = 1 / Math.sqrt(2);
-
-        //Now the direction is random
-        this.vectorX = Math.round(bb2_0.random(0, 1)) == 0 ? this.vectorX * 
-        (-1) : this.vectorX;
-
-        this.vectorY = Math.round(bb2_0.random(0, 1)) == 0 ? this.vectorY * 
-        (-1) : this.vectorY;
-
-        
-        */
         
     }
 

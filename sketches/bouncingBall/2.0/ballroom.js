@@ -64,16 +64,7 @@ const bbC2_0 = (p) => {
             let index = document.getElementById("bbSelect").selectedIndex;
 
             p.reset(configArray[index]);
-        })
-        
-        //modeSelection.changed(p.reset(configArray[2]));
-        
-        /*
-        var scripts = document.getElementsByTagName("script");
-        var src = scripts[scripts.length-1].src;
-        var name = scripts[scripts.length - 1].;
-        p.print(src + " " + name);
-        */
+        });
     }
 
     /**
@@ -85,17 +76,57 @@ const bbC2_0 = (p) => {
         // Create new empty array if there happen to be old elements inside
         balls = [];
 
-        // Creating the balls with the config
-        for (let i = 0; i < config.amount; ++i) {
-            balls[i] = new BouncingBall(
-                config.x, 
-                config.y, 
-                config.size, 
-                config.speed,
-                config.angle,
-                config.color
-            );
+
+        switch (config.type) {
+            // In case of basic configuraion
+            case "basic":
+
+                for (let i = 0; i < config.amount; ++i) {
+                    balls[i] = new BouncingBall(
+                        config.x, 
+                        config.y, 
+                        config.size, 
+                        config.speed,
+                        config.angle,
+                        config.color
+                    );
+                }
+
+                break;
+
+            case "grid":
+
+                let spawnDistanceX = (config.maxX - config.minX) / (config.m - 1);
+                let spawnDistanceY = (config.maxY - config.minY) / (config.n - 1);
+
+                let i = 0;
+
+                for (let n = 0; n < config.n; ++n) {
+
+                    for (let m = 0; m < config.m; ++m) {
+
+                        balls[i] = new BouncingBall(
+                            config.minX + spawnDistanceX * m,
+                            config.minY + spawnDistanceY * n,
+                            config.size,
+                            config.speed,
+                            config.angle,
+                            config.color
+                        );
+
+                        ++i;
+                    }
+
+                }
+
+                break;
+            // When no type specified
+            default:
+                
+
         }
+        // Creating the balls with the config
+        
     }
     
     //This will be called every frame
