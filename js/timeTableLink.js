@@ -3,6 +3,8 @@
  * It will always show the current week and on weekends show the next week.
  */
 
+// OLD, NOT IN USE
+
 // The basic link used without modifiers
 var linkBasic = "http://193.196.6.13/rapla?page=calendar&user=Schmidt";
 
@@ -50,20 +52,19 @@ var yearString = String(year);
 
 // Putting the links together
 var link = linkBasic + 
-    "&" + linkPieceFile + "=" + linkPieceFilePlan + course + linkPieceFileYear +  
+    "&" + linkPieceFile + "=" + course + linkPieceFileYear +  
     "&" + linkPieceDay + "=" + dayString + 
     "&" + linkPieceMonth + "=" + monthString + 
     "&" + linkPieceYear + "=" + yearString;
 
-// Catch mistake cases
-if (course != "TIT" && course != "TIM" && course != "nothin") {
-    document.write("\nSorry, keine Weiterleitung möglich, da du nicht den richtigen Plan eingegeben hast.\nEs gibt keinen Kurs namens " + course + ".");
-} else if (course === "nothin") {
-    document.write("Du musst einen Kurs spezifizieren. Versuche \"?course=TIT\" oder \"?course=TIM\" an die URL anzuhängen.");
-} else {
-    // Redirect to the page
-    window.location.replace(link);
-}
+
+
+// Redirect to the page
+setTimeout(function(){window.location.replace(link)}, 100);
+// window.location.replace(link);
+
 
 
 // console.log(link);
+// http://193.196.6.13/rapla?page=calendar&user=Schmidt&file=TIM17%2BTIT1717&day=17&month=11&year=2019
+// http://193.196.6.13/rapla?page=calendar&user=Schmidt&file=TIM17%2BTIT17&day=18&month=10&year=2019
