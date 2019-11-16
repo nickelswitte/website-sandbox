@@ -67,6 +67,11 @@ function getRaplaLink(course) {
  */
 function raplaRedirect(course) {
 
+    // Do this for backwards compatibility
+    if (course == "TIT" || course == "TIM") {
+        course += "17";
+    }
+
     if (course != "TIM17%2BTIT17" && course != "TIM18%2BTIT18%2BTIS18") {
         course = "Plan" + course;
     }
