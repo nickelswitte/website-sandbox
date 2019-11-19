@@ -12,6 +12,24 @@
     transition: 0.15s;
 }
 
+.rotate-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rotate {
+    overflow: hidden;
+    transition-duration: 0.8s;
+    transition-property: transform;
+}
+
+.rotate-container:hover > .rotate {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+}
+
 /*
 .scale-animation {
     height: 15px;
