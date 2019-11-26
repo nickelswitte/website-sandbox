@@ -1,6 +1,4 @@
 # website-sandbox
 `under development`
 
-Sandbox testing environment for my website
-
-This is the branch `Database`
+This is the branch `database` that will be used to develop a database backend to the website

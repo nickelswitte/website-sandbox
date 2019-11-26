@@ -79,12 +79,4 @@ function raplaRedirect(course) {
     window.location.href = getRaplaLink(course);
 }
 
-/**
- * For later uses
- */
-function prepareLinks() {
-    var input = document.getElementById("input_tim17"); 
-    input.value = "LoL"; 
-}
 
-// prepareLinks();
