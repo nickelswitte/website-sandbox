@@ -4,11 +4,17 @@
 <head>
     <meta charset='utf-8' />
 
+    <!-- CSS -->
     <link href='../lib/fullcalendar/packages/core/main.css' rel='stylesheet' />
     <link href='../lib/fullcalendar/packages/daygrid/main.css' rel='stylesheet' />
+    <link href='../lib/fullcalendar/packages/timeGrid/main.css' rel='stylesheet' />
+    <link href='../lib/fullcalendar/packages/list/main.css' rel='stylesheet' />
 
+    <!-- JS -->
     <script src='../lib/fullcalendar/packages/core/main.js'></script>
     <script src='../lib/fullcalendar/packages/daygrid/main.js'></script>
+    <script src='../lib/fullcalendar/packages/timegrid/main.js'></script>
+    <script src='../lib/fullcalendar/packages/list/main.js'></script>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="../lib/bootstrap-4.3.1-dist/css/bootstrap.min.css">
@@ -19,7 +25,99 @@
             var calendarEl = document.getElementById('calendar');
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                plugins: ['dayGrid']
+                plugins: ['dayGrid', 'timeGrid', 'list' ],
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'timeGridWeek,timeGridDay,listWeek'
+                },
+                businessHours: {
+                    // days of week. an array of zero-based day of week integers (0=Sunday)
+                    daysOfWeek: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
+
+                    startTime: '8:00', // a start time (10am in this example)
+                    endTime: '20:00', // an end time (6pm in this example)
+                },
+                weekends: false,
+                // Set the time to display
+                minTime: "08:00",
+                maxTime: "22:00",
+                // Show current time
+                nowIndicator: true,
+                // Format the time display
+                slotLabelFormat: {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    omitZeroMinute: true,
+                    hour12: false,
+                },
+                columnHeaderFormat: {
+                    weekday: 'short',
+                    day: 'numeric', 
+                    month: 'numeric', 
+                    omitCommas: false
+                },
+                eventTimeFormat: { // like '14:30:00'
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                },
+                events: [
+                    {
+                        title: 'All Day Event',
+                        start: '2019-08-01',
+                    },
+                    {
+                        title: 'Long Event',
+                        start: '2019-08-07',
+                        end: '2019-08-10'
+                    },
+                    {
+                        groupId: 999,
+                        title: 'Repeating Event',
+                        start: '2019-08-09T16:00:00'
+                    },
+                    {
+                        groupId: 999,
+                        title: 'Repeating Event',
+                        start: '2019-08-16T16:00:00'
+                    },
+                    {
+                        title: 'Conference',
+                        start: '2019-08-11',
+                        end: '2019-08-13'
+                    },
+                    {
+                        title: 'Meeting',
+                        start: '2019-08-12T10:30:00',
+                        end: '2019-08-12T12:30:00'
+                    },
+                    {
+                        title: 'Lunch',
+                        start: '2019-08-12T12:00:00'
+                    },
+                    {
+                        title: 'Meeting',
+                        start: '2019-08-12T14:30:00'
+                    },
+                    {
+                        title: 'Happy Hour',
+                        start: '2019-08-12T17:30:00'
+                    },
+                    {
+                        title: 'Dinner',
+                        start: '2019-08-12T20:00:00'
+                    },
+                    {
+                        title: 'Birthday Party',
+                        start: '2019-08-13T07:00:00'
+                    },
+                    {
+                        title: 'Click for Google',
+                        url: 'http://google.com/',
+                        start: '2019-08-28'
+                    }
+                ]
             });
 
             calendar.render();
@@ -33,6 +131,16 @@
     <div class="container">
         <div id='calendar'></div>
     </div>
+
+    <style>
+        
+        #calendar {
+            /*max-width: 1200px;*/
+            max-height: 100%;
+            margin: 0 auto;
+        }
+    
+    </style>
 
 
 </body>
