@@ -174,3 +174,5 @@ function csajax_debug_message($message)
         print $message . PHP_EOL;
     }
 }
+
+?>

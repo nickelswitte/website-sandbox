@@ -179,13 +179,17 @@
 
             console.log('Proxy call started.');
 
+            var pathToFile = '../lib/php-cross-domain-proxy-master/proxy.php';
+            // var pathToFile = '../lib/php-cross-domain-proxy/hi.php';
+            // var pathToFile = '../lib/php-cross-domain-proxy/file.ics';
+
             // console.log(callbackMethod + " " + pathToFile);
 
             var xobj = new XMLHttpRequest();
 
-            xobj.overrideMimeType("text/plain");
+            // xobj.overrideMimeType("text/plain");
 
-            xobj.open('GET', '../lib/php-cross-domain-proxy/proxy.php', true);
+            xobj.open('GET', pathToFile, true);
 
             /*
             xobj.setRequestHeader('csurl', "http://193.196.6.13/rapla");
@@ -197,6 +201,7 @@
             xobj.onreadystatechange = function () {
                 if (xobj.readyState == 4 && xobj.status == "200") {
                     //eval(xobj.responseText);
+                    console.log('SUCCESS!!!');
                     console.log(xobj.responseText);
                     callbackMethod();
                 } else {
@@ -208,6 +213,7 @@
             xobj.send(null);  
         }
 
+        // Execute call
         proxyCall(callback2);
 
         function callback2() {
