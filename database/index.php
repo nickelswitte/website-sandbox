@@ -28,12 +28,28 @@
 			<h1 class="text-center">This is used to test the database</h1>
 
 			<?php
-				
+
+				// Take care of connector
 				include "./php/db_connector.php";
 
 				$connector = new Connector("sketches", "sketches");
 
-				$connector->getSketch("test%");
+				// Include default search form
+				include "search.html";
+
+				// Check for query
+				if (!isset($_GET['q']) or is_null($_GET['q']) or empty($_GET['q'])) {
+					// When no query or empty querries, exit any of the following stuff
+					exit();
+				}
+
+				// Save
+				$query = $_GET['q'];
+				
+				echo "<h2> Ergebnisse zu " . $query . "</h1>";
+
+				$connector->getSketch($query);
+				
 
 			?>
 

@@ -24,8 +24,16 @@
             // Create connection
             $this->mysqli = new mysqli($servername, $username, $password, $database);
             
+            // Check for error in connection and exit if something fails
             if (mysqli_connect_errno()) {
                 printf("Connect failed: %s\n", mysqli_connect_error());
+                exit();
+            }
+
+            // change character set to utf8
+            $setChar = $this->mysqli->set_charset("utf8");
+            if (!$setChar) {
+                printf("Error loading character set utf8: %s<br>", $this->mysqli->error);
                 exit();
             }
         }
@@ -58,6 +66,8 @@
 
                     // use your $myrow array as you would with any other fetch
                     // printf("Result: %s, %s<br>", $myrow['name'], $myrow['path']);
+
+                    error_log("Failed to connect to database!", 0);
 
                 }
             }
