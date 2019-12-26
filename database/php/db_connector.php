@@ -43,33 +43,25 @@
             $this->mysqli->close();
         }
 
+        /**
+         * This will get the whole row of a sketch by using its name
+         */
         public function getSketch($name) {
-            // prepare query, tablename is not allowed to be bound
+            // prepare query statement
+            // Its not possible to bind the table as a parameter, so its done with php
             $sql = 'SELECT * FROM ' . $this->table . ' WHERE name LIKE ?';
 
+            // If prepare is successful
             if ($stmt = $this->mysqli->prepare($sql)) {
                 
+                // Bind the name into it
                 $stmt->bind_param('s', $name);
 
                 $stmt->execute();
 
                 $result = $stmt->get_result();
 
-                /* now you can fetch the results into an array - NICE */
-                while ($myrow = $result->fetch_assoc()) {
-
-                    foreach($myrow as $x => $x_value) {
-                        echo $x_value . " ";
-                    }
-
-                    echo "<br>";
-
-                    // use your $myrow array as you would with any other fetch
-                    // printf("Result: %s, %s<br>", $myrow['name'], $myrow['path']);
-
-                    error_log("Failed to connect to database!", 0);
-
-                }
+                return $result;
             }
         }
     }

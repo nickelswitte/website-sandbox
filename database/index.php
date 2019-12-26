@@ -48,14 +48,47 @@
 				
 				echo "<h2> Ergebnisse zu " . $query . "</h1>";
 
-				$connector->getSketch($query);
+				// Get result object
+				$result = $connector->getSketch($query);
+				// Save everything as array
+				$result_all = $result->fetch_all();
+
+				// Print everything
+				// echo var_dump($result_all);
+
+				// Set array pointer back to 0
+				$result->data_seek(0);
+
+				// Print
+				while ($myrow = $result->fetch_assoc()) {
+                    
+                    foreach($myrow as $x => $x_value) {
+                        echo $x_value . " ";
+                    }
+
+                    echo "<br>";
+                }
 				
+
 
 			?>
 
+
+			<h3> This is a the sketch "<?php echo $result_all[0][1]; ?>".</h3>
+			Description: <?php echo $result_all[0][2]; ?>
+			<div id="p503"></div>
+
+			
+
 		</div>
 
+		<!-- P5 Include -->
+		<script src="../lib/p5/p5.js"></script>
+		<script src="../lib/p5/addons/p5.dom.js"></script>
+		<script src="../lib/p5/addons/p5.sound.js"></script>
 
+		<!-- My Sketches -->
+		<script src="../<?php echo $result_all[0][3]; ?>"></script>
 
 	</body>
 
