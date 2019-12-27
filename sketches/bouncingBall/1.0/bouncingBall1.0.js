@@ -29,7 +29,7 @@ const bbC1_0 = (p) => {
     //This will be calles on start
     p.setup = function() {
         var c = p.createCanvas(800, 400);
-        c.parent("p502");
+        c.parent("1002");
         //c.style('display', 'block');
 
         //Make sure everything is without borders

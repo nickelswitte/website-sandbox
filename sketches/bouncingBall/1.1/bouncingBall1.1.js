@@ -46,7 +46,7 @@ const bbC1_1 = (p) => {
     //This will be calles on start
     p.setup = function() {
         var c = p.createCanvas(800, 400);
-        c.parent("p503");
+        c.parent("1001");
         //c.style('display', 'block');
 
         //Make sure everything is without borders

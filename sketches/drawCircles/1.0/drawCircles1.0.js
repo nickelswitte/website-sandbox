@@ -11,14 +11,14 @@ const drawCirclesConst = (p) => {
     
     p.setup = function() {
         var c = p.createCanvas(800, 400);
-        c.parent("p501");
+        c.parent("1000");
 
         //Prepare everything for starting
         p.resetSketch();
 
         //Creating a button to reset
         var button = p.createButton("reset");
-        button.parent("p501");
+        button.parent("1000");
         button.mousePressed(p.resetSketch);
     };
     
