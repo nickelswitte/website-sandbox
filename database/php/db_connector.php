@@ -66,19 +66,19 @@
         }
 
         /**
-         * This function will return the next $amount sketches starting at
-         * the $offset. The results are sorted from the newest to oldest.
+         * This function will return sketches starting from the offset and limiting the results
+         * with limit.
+         * The results are sorted from the newest to oldest.
          */
-        public function getNextSketches($offset, $amount) {
-            // prepare query statement
-            // Its not possible to bind the table as a parameter, so its done with php
-            $sql = 'SELECT * FROM ' . $this->table . ' ORDER BY timestamp DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY';
+        public function getNextSketches($offset, $limit) {
+            // Prepare the sql statement
+            $sql = 'SELECT * FROM ' . $this->table . ' ORDER BY timestamp LIMIT ?,?';
 
             // If prepare is successful
             if ($stmt = $this->mysqli->prepare($sql)) {
                 
-                // Bind the name into it
-                $stmt->bind_param('dd', $offset, $amount);
+                // Bind the parameters to it
+                $stmt->bind_param('dd', $offset, $limit);
 
                 $stmt->execute();
 
