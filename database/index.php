@@ -55,16 +55,20 @@
 				$result_all = $result->fetch_all();
 
 				// Test to get assoc array
+				/*
 				$result->data_seek(0);
 				$result_all_assoc = $result->fetch_all(MYSQLI_ASSOC);
+				*/
 
 				// Print everything
 				// echo var_dump($result_all);
-				echo var_dump($result_all_assoc);
+				// echo var_dump($result_all_assoc);
 
 				//Test for assoc array
+				/*
 				echo "<br>";
 				echo $result_all_assoc[0]["sketchID"];
+				*/
 
 				// Set array pointer back to 0
 				$result->data_seek(0);

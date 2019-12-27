@@ -49,7 +49,7 @@
         public function getSketch($name) {
             // prepare query statement
             // Its not possible to bind the table as a parameter, so its done with php
-            $sql = 'SELECT * FROM ' . $this->table . ' WHERE name LIKE ?';
+            $sql = 'SELECT * FROM ' . $this->table . ' WHERE name LIKE ? ORDER BY timestamp ASC';
 
             // If prepare is successful
             if ($stmt = $this->mysqli->prepare($sql)) {
