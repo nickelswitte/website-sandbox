@@ -50,7 +50,9 @@
 				echo "<h2> Ergebnisse zu " . $query . "</h1>";
 
 				// Get result object
-				$result = $connector->getSketch($query);
+				// getNextSketches
+				// $result = $connector->getSketch($query);
+				$result = $connector->getNextSketches(1, 1);
 				// Save everything as array
 				$result_all = $result->fetch_all();
 

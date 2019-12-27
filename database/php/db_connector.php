@@ -49,13 +49,36 @@
         public function getSketch($name) {
             // prepare query statement
             // Its not possible to bind the table as a parameter, so its done with php
-            $sql = 'SELECT * FROM ' . $this->table . ' WHERE name LIKE ? ORDER BY timestamp ASC';
+            $sql = 'SELECT * FROM ' . $this->table . ' WHERE name LIKE ? ORDER BY timestamp DESC';
 
             // If prepare is successful
             if ($stmt = $this->mysqli->prepare($sql)) {
                 
                 // Bind the name into it
                 $stmt->bind_param('s', $name);
+
+                $stmt->execute();
+
+                $result = $stmt->get_result();
+
+                return $result;
+            }
+        }
+
+        /**
+         * This function will return the next $amount sketches starting at
+         * the $offset. The results are sorted from the newest to oldest.
+         */
+        public function getNextSketches($offset, $amount) {
+            // prepare query statement
+            // Its not possible to bind the table as a parameter, so its done with php
+            $sql = 'SELECT * FROM ' . $this->table . ' ORDER BY timestamp DESC OFFSET ? ROWS FETCH NEXT ? ROWS ONLY';
+
+            // If prepare is successful
+            if ($stmt = $this->mysqli->prepare($sql)) {
+                
+                // Bind the name into it
+                $stmt->bind_param('dd', $offset, $amount);
 
                 $stmt->execute();
 
