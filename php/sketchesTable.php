@@ -34,7 +34,7 @@
          * name, description
          * and return the matching rows.
          */
-        public function searchSketches($query, $resultType) {
+        public function search($query, $resultType) {
 
             $query = "%" . $query . "%";
 
@@ -66,7 +66,7 @@
          * the resulting rows with $limit.
          * The results are sorted from the newest to oldest.
          */
-        public function getNextSketches($offset, $limit) {
+        public function getNext($offset, $limit) {
             // Prepare the sql statement
             $sql = 'SELECT * FROM ' . $this->table . ' ORDER BY timestamp LIMIT ?,?';
 
@@ -90,8 +90,5 @@
         }
 
     }
-
-    // Create the object to use it
-    $sketches = new SketchesTable();
     
 ?>

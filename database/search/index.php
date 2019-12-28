@@ -22,15 +22,20 @@
 	<body>
 
 		<div class="container">
-			<h1 class="text-center">Database Testing Site</h1>
+			<h1 class="text-center">Search Sketches</h1>
 
 			<?php
 
-				// Include connector and make it avaliable under $sketches$
+				// Include the sketch utils
+				include "../../php/sketchUtils.php";
+
+				// Include connector and make it avaliable under $sketches
 				include "../../php/sketchesTable.php";
+				// Create the object to use it
+				$sketches = new SketchesTable();
 
 				// Include default search form
-				include "search.html";
+				include "searchForm.html";
 
 				// Check for query
 				if (!isset($_GET['q']) or is_null($_GET['q']) or empty($_GET['q'])) {
@@ -47,18 +52,18 @@
 				echo "<h2> Ergebnisse zu \"" . $query . "\"</h1>";
 
 				// Get result rows
-				$result = $sketches->searchSketches($query, "ASSOC");
+				$result = $sketches->search($query, "ASSOC");
+
+				// Give a little feedback, when nothing was found
+				if ($result == NULL) {
+					echo "No results found";
+				}
 
 				// Print result
 				// var_dump($result);
-				
-				
-				// Create one html section for every result
-				for ($x = 0; $x < count($result); $x++) {
-					echo '<h3>' . $result[$x]["name"] . '</h3>';
-					echo 'Description: ' . $result[$x]["description"];
-					echo '<div id="' . $result[$x]["divID"] .  '"></div>';
-				}
+
+				// This will generate the divs necessary for the sketches
+				generateSketchDivs($result);
 				
 			?>			
 
@@ -68,13 +73,12 @@
 		<script src="../../lib/p5/p5.js"></script>
 		<script src="../../lib/p5/addons/p5.dom.js"></script>
 		<script src="../../lib/p5/addons/p5.sound.js"></script>
+		
 
 		<!-- Include Sketches -->
 		<?php
-			// Include every sketch for every result
-			for ($x = 0; $x < count($result); $x++) {
-				echo '<script src="../../' . $result[$x]["path"] . '"></script>';
-			}
+			// Create the script tags that will load the sketches
+			createSketchScriptTags($result);
 		?>
 
 	</body>
