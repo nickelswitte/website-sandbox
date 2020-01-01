@@ -22,7 +22,7 @@
 	<body>
 
 		<div class="container">
-			<h1 class="text-center">Search Sketches</h1>
+			<h1 class="text-center">Sketches</h1>
 
             <?php
 

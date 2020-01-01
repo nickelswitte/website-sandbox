@@ -8,12 +8,6 @@
  * Version  1.0
  */
 const placeHolderConst = (p) => {
-
-    p.myFont;
-
-    p.preload = function() {
-        // myFont = p.loadFont('assets/inconsolata.otf');
-    }
     
     p.setup = function() {
         var c = p.createCanvas(800, 400);
