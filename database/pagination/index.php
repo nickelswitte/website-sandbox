@@ -76,6 +76,7 @@
 				// This will generate the divs necessary for the sketches
                 generateSketchDivs($result);
 
+                // Do the Pagination buttons
                 generatePaginationButtons($page);
 				
 			?>
