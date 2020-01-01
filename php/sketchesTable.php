@@ -55,7 +55,7 @@
                 // Depending on the wished result type, the array is returned
                 if ($resultType == $this->numeric) {
                     return $result->fetch_all();
-                } else if ($resultType = $this->assoc) {
+                } else if ($resultType == $this->assoc) {
                     return $result->fetch_all(MYSQLI_ASSOC);
                 }
             }
@@ -66,9 +66,9 @@
          * the resulting rows with $limit.
          * The results are sorted from the newest to oldest.
          */
-        public function getNext($offset, $limit) {
+        public function getNext($offset, $limit, $resultType) {
             // Prepare the sql statement
-            $sql = 'SELECT * FROM ' . $this->table . ' ORDER BY timestamp LIMIT ?,?';
+            $sql = 'SELECT * FROM ' . $this->tableName . ' ORDER BY timestamp DESC LIMIT ?,?';
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
@@ -81,10 +81,10 @@
                 $result = $stmt->get_result();
 
                 // Depending on the wished result type, the array is returned
-                if ($resultType = $this->$numeric) {
+                if ($resultType == $this->numeric) {
                     return $result->fetch_all();
-                } else if ($resultType = $this->$assoc) {
-                    $result->fetch_all(MYSQLI_ASSOC);
+                } else if ($resultType == $this->assoc) {
+                    return $result->fetch_all(MYSQLI_ASSOC);
                 }
             }
         }

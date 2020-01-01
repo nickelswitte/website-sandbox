@@ -19,4 +19,21 @@
             echo '<script src="../../' . $array[$x]["path"] . '"></script>';
         }
     }
+
+    function generatePaginationButtons($currentPage) {
+
+        // Include basic php utils
+        // include "../../php/phpUtils.php";
+
+        // Remove query from link
+        $currentUrlWithoutQuery = getCurrentUrlWithoutQuery();
+
+        // Add the new stuff for queries again
+        $preparedLink = $currentUrlWithoutQuery . "?p=";
+
+        echo '<input type="button" onclick="location.href=\'' . $preparedLink . ($currentPage - 1) . '\';"value="Prev"/>';
+
+        echo '<input type="button" onclick="location.href=\'' . $preparedLink . ($currentPage + 1) . '\';"value="Next"/>';
+        // <input type="button" onclick="location.href='http://google.com';" value="Go to Google" />
+    }
 ?>
