@@ -27,7 +27,7 @@
             <?php
 
                 // Set the numbers of sketches per page
-                $numPerPage = 1;
+                $numPerPage = 2;
 
 				// Include the sketch utils
                 include "../../php/sketchUtils.php";
