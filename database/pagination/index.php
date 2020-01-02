@@ -46,8 +46,13 @@
 					// $page = 1;
 				} else {
                     // When p is there but its not correct
-                    if ($_GET['p'] <= 0 or is_null($_GET['p']) or empty($_GET['p'])) {
-                        // redirect to basic page
+                    if (
+                        $_GET['p'] <= 0 or 
+                        $_GET['p'] > $sketches->getCount() or
+                        is_null($_GET['p']) or 
+                        empty($_GET['p'])) {
+
+                        // redirect to start page
                         header('Location: ' . getCurrentUrlWithoutQuery());
                     }
 
@@ -68,16 +73,11 @@
 					echo "No results found";
 				}
 
-				// Print result
-				// var_dump($result);
-
 				// This will generate the divs necessary for the sketches
                 generateSketchDivs($result);
 
                 // Do the Pagination buttons
                 generatePaginationButtons($page, $sketches->getCount());
-
-                //echo $sketches->getCount();
 				
 			?>
 
