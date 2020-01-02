@@ -89,6 +89,25 @@
             }
         }
 
+        /**
+         * This function will return the number of sketches that are currently
+         * in the sketches table
+         */
+        public function getCount() {
+            $sql = 'SELECT count(*) FROM ' . $this->tableName;
+
+            // If prepare is successful
+            if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
+                
+                $stmt->execute();
+
+                $result = $stmt->get_result();
+                
+                return $result->fetch_all()[0][0];
+                
+            }
+        }
+
     }
     
 ?>

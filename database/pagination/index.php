@@ -31,8 +31,6 @@
 
 				// Include the sketch utils
                 include "../../php/sketchUtils.php";
-                // Include basic php utils
-                include "../../php/phpUtils.php";
 
 				// Include connector and make it avaliable under $sketches
 				include "../../php/sketchesTable.php";
@@ -77,7 +75,9 @@
                 generateSketchDivs($result);
 
                 // Do the Pagination buttons
-                generatePaginationButtons($page);
+                generatePaginationButtons($page, $sketches->getCount());
+
+                //echo $sketches->getCount();
 				
 			?>
 

@@ -4,6 +4,9 @@
      * and are related to sketches
      */
 
+    // Include basic php utils
+    include "../../php/phpUtils.php";
+
     function generateSketchDivs($array) {
         // Create one html section for every result
         for ($x = 0; $x < count($array); $x++) {
@@ -20,10 +23,10 @@
         }
     }
 
-    function generatePaginationButtons($currentPage) {
-
-        // Include basic php utils
-        // include "../../php/phpUtils.php";
+    /**
+     * This function will generate buttons for the next and previous pages
+     */
+    function generatePaginationButtons($currentPage, $lastPage) {
 
         // Remove query from link
         $currentUrlWithoutQuery = getCurrentUrlWithoutQuery();
@@ -31,9 +34,14 @@
         // Add the new stuff for queries again
         $preparedLink = $currentUrlWithoutQuery . "?p=";
 
-        echo '<input type="button" onclick="location.href=\'' . $preparedLink . ($currentPage - 1) . '\';"value="Prev"/>';
+        if ($currentPage > 1) {
+            echo '<input type="button" onclick="location.href=\'' . $preparedLink . ($currentPage - 1) . '\';"value="Prev"/>';
+        }
 
-        echo '<input type="button" onclick="location.href=\'' . $preparedLink . ($currentPage + 1) . '\';"value="Next"/>';
-        // <input type="button" onclick="location.href='http://google.com';" value="Go to Google" />
+        if ($currentPage < $lastPage) {
+            echo '<input type="button" onclick="location.href=\'' . $preparedLink . ($currentPage + 1) . '\';"value="Next"/>';
+            // <input type="button" onclick="location.href='http://google.com';" value="Go to Google" />
+        }
+        
     }
 ?>
