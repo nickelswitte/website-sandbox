@@ -5,7 +5,7 @@
      */
 
     // Include basic php utils
-    include "../../php/phpUtils.php";
+    include "phpUtils.php";
 
     function generateSketchDivs($array) {
         // Create one html section for every result
@@ -19,7 +19,7 @@
     function createSketchScriptTags($array) {
         // Include every sketch for every result
         for ($x = 0; $x < count($array); $x++) {
-            echo '<script src="../../' . $array[$x]["path"] . '"></script>';
+            echo '<script src="../' . $array[$x]["path"] . '"></script>';
         }
     }
 

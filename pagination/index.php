@@ -9,13 +9,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 
 		<!-- Favicon is important -->
-		<link rel="shortcut icon" href="../../img/favicon.ico">
+		<link rel="shortcut icon" href="../img/favicon.ico">
 
-		<link rel="icon" type="image/png" href="../../img/favicon.ico" sizes="32x32">
-		<link rel="icon" type="image/png" href="../../img/favicon.ico" sizes="96x96">
+		<link rel="icon" type="image/png" href="../img/favicon.ico" sizes="32x32">
+		<link rel="icon" type="image/png" href="../img/favicon.ico" sizes="96x96">
 
 		<!-- Bootstrap -->
-		<link rel="stylesheet" href="../../lib/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="../lib/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 
 	</head>
 
@@ -30,10 +30,10 @@
                 $numPerPage = 2;
 
 				// Include the sketch utils
-                include "../../php/sketchUtils.php";
+                include "../php/sketchUtils.php";
 
 				// Include connector and make it avaliable under $sketches
-				include "../../php/sketchesTable.php";
+				include "../php/sketchesTable.php";
 				// Create the object to use it
                 $sketches = new SketchesTable();
                 
@@ -86,9 +86,9 @@
 		</div>
 
 		<!-- P5 Include -->
-		<script src="../../lib/p5/p5.js"></script>
-		<script src="../../lib/p5/addons/p5.dom.js"></script>
-		<script src="../../lib/p5/addons/p5.sound.js"></script>
+		<script src="../lib/p5/p5.js"></script>
+		<script src="../lib/p5/addons/p5.dom.js"></script>
+		<script src="../lib/p5/addons/p5.sound.js"></script>
 		
 
 		<!-- Include Sketches -->
