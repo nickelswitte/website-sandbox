@@ -9,8 +9,11 @@
 
     <!-- Include Sketches -->
     <?php
-        // Create the script tags that will load the sketches
-        createSketchScriptTags($result, $root);
+
+        if (isset($result)) {
+            // Create the script tags that will load the sketches
+            createSketchScriptTags($result, $root);
+        }
     ?>
     
     </body>

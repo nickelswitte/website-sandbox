@@ -7,3 +7,11 @@ html, body {
 
     padding-bottom: 20px;
 }
+
+#container {
+    padding-top: 20px;
+}
+
+#margin_top {
+    margin-top: 20px;
+}

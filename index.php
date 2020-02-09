@@ -3,9 +3,6 @@
 	$root = './';
 	include $root . 'php/templates/header.php';
 
-	// Include the sketch utils
-	include $root . 'php/sketchUtils.php';
-
 	// Include connector and make it avaliable under $sketches
 	include $root . 'php/databaseConnection/sketchesTable.php';
 	// Create the object to use it

@@ -25,7 +25,10 @@
 	<body>
 
         <?php
-            include 'navbar.php';
+			include_once 'navbar.php';
+			
+			// Include the sketch utils
+			include_once $root . 'php/sketchUtils.php';
         ?>
 
-		<div class="container mainBody">
+		<div class="container mainBody" id="container">

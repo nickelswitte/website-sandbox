@@ -5,7 +5,7 @@
      */
 
     // Include basic php utils
-    include "phpUtils.php";
+    include_once "phpUtils.php";
 
     function generateSketchDivs($array) {
         // Create one html section for every result
