@@ -26,8 +26,6 @@
 
 			<?php
 
-			    // Hello this is me!
-
 				// Include the sketch utils
 				include "../php/sketchUtils.php";
 

@@ -16,10 +16,10 @@
         }
     }
 
-    function createSketchScriptTags($array) {
+    function createSketchScriptTags($array, $root) {
         // Include every sketch for every result
         for ($x = 0; $x < count($array); $x++) {
-            echo '<script src="../' . $array[$x]["path"] . '"></script>';
+            echo '<script src="' . $root . $array[$x]["path"] . '"></script>';
         }
     }
 
