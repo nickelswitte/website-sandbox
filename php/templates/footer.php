@@ -13,7 +13,6 @@
         createSketchScriptTags($result, $root);
     ?>
     
-    
     </body>
 
 </html>

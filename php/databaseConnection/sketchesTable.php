@@ -1,6 +1,6 @@
 <?php
 
-    include "dbConnector.php";
+    include_once "dbConnector.php";
 
     /**
      *  This file represents the connection to the sketches table and will contain 
