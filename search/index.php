@@ -3,11 +3,7 @@
 	$root = '../';
 	$pageTitle = 'Search Sketches';
 	include $root . 'php/templates/header.php';
-?>
 
-<h1 class="text-center">Search Sketches</h1>
-
-<?php
 
 	// Include the sketch utils
 	include $root . "php/sketchUtils.php";
@@ -19,20 +15,18 @@
 	$sketches = new SketchesTable();
 
 	// Include default search form
-	include "searchForm.html";
+	// include "searchForm.html";
 
 	// Check for query
 	if (!isset($_GET['q']) or is_null($_GET['q']) or empty($_GET['q'])) {
 		// When no query or empty querries, exit any of the following stuff
 		echo "Type a keyword to start a search.";
-		echo "<hr>";
 		exit();
 	}
 
 	// Save
 	$query = $_GET['q'];
 	
-	echo "<hr>";
 	echo "<h2> Ergebnisse zu \"" . $query . "\"</h1>";
 
 	// Get result rows
