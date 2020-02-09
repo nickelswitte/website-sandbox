@@ -52,14 +52,14 @@
 
 	// Give a little feedback, when nothing was found
 	if ($result == NULL) {
-		echo "No results found";
+		echo "No results found <br>";
 	}
 
 	// This will generate the divs necessary for the sketches
 	generateSketchDivs($result);
 
 	// Do the Pagination buttons
-	generatePaginationButtons($page, $sketches->getCount());
+	generatePaginationButtons($page, $sketches->getCount() / $numPerPage);
 	
 ?>
 

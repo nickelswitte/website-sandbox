@@ -17,7 +17,8 @@
     }
 
     function createSketchScriptTags($array, $root) {
-        // Include every sketch for every result
+        // Create script tag for every sketch using the root variable as well as 
+        // the path from the database
         for ($x = 0; $x < count($array); $x++) {
             echo '<script src="' . $root . $array[$x]["path"] . '"></script>';
         }
@@ -38,6 +39,7 @@
             echo '<input type="button" onclick="location.href=\'' . $preparedLink . ($currentPage - 1) . '\';"value="Prev"/>';
         }
 
+        // Only create button, if there is actually more sketches
         if ($currentPage < $lastPage) {
             echo '<input type="button" onclick="location.href=\'' . $preparedLink . ($currentPage + 1) . '\';"value="Next"/>';
             // <input type="button" onclick="location.href='http://google.com';" value="Go to Google" />
