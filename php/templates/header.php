@@ -16,6 +16,7 @@
 		<link rel="icon" type="image/png" href="<?php echo $root; ?>img/favicon.ico" sizes="32x32">
 		<link rel="icon" type="image/png" href="<?php echo $root; ?>img/favicon.ico" sizes="96x96">
 
+        <link rel="stylesheet" href="<?php echo $root; ?>css/style.css">
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="<?php echo $root; ?>lib/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 
@@ -27,4 +28,4 @@
             include 'navbar.php';
         ?>
 
-		<div class="container">
+		<div class="container mainBody">

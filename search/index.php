@@ -27,7 +27,7 @@
 	// Save
 	$query = $_GET['q'];
 	
-	echo "<h2> Ergebnisse zu \"" . $query . "\"</h1>";
+	echo '<p class="text-muted"> Ergebnisse zu "' . $query . '"</p>';
 
 	// Get result rows
 	$result = $sketches->search($query, "ASSOC");

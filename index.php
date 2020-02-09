@@ -2,11 +2,6 @@
 	$pageTitle = 'Templated Page';
 	$root = './';
 	include $root . 'php/templates/header.php';
-?>
-
-<h1 class="text-center">Sketches Templated!</h1>
-
-<?php
 
 	// Include the sketch utils
 	include $root . 'php/sketchUtils.php';
@@ -18,7 +13,7 @@
 
 	include $root . 'php/databaseConnection/variablesTable.php';
 	$variablesTable = new VariablesTable();
-
+	// Get number per page from database
 	$numPerPage = $variablesTable->getSketchesPerPage();
 	
 	// Set page default to one
@@ -43,7 +38,7 @@
 		$page = $_GET['p'];
 	}
 
-	echo "<h2> Seite " . ($page) . "</h1>";
+	echo '<p class="text-muted"> Seite ' . ($page) . '</p>';
 
 	/**
 	 * Get resulting rows
@@ -59,11 +54,12 @@
 	// This will generate the divs necessary for the sketches
 	generateSketchDivs($result);
 
-	// Do the Pagination buttons
-	generatePaginationButtons($page, $sketches->getCount() / $numPerPage);
-	
-?>
 
-<?php 
+	$lastPage = $sketches->getCount() / $numPerPage;
+
+	// Do the Pagination buttons
+	generatePaginationButtons($page, $lastPage);
+	
+	// include footer
 	include $root . 'php/templates/footer.php';
 ?>

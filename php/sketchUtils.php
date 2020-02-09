@@ -36,12 +36,12 @@
         $preparedLink = $currentUrlWithoutQuery . "?p=";
 
         if ($currentPage > 1) {
-            echo '<input type="button" onclick="location.href=\'' . $preparedLink . ($currentPage - 1) . '\';"value="Prev"/>';
+            echo '<input class="btn btn-dark" type="button" onclick="location.href=\'' . $preparedLink . ($currentPage - 1) . '\';"value="Prev"/>';
         }
 
         // Only create button, if there is actually more sketches
         if ($currentPage < $lastPage) {
-            echo '<input type="button" onclick="location.href=\'' . $preparedLink . ($currentPage + 1) . '\';"value="Next"/>';
+            echo '<input  class="btn btn-dark" type="button" onclick="location.href=\'' . $preparedLink . ($currentPage + 1) . '\';"value="Next"/>';
             // <input type="button" onclick="location.href='http://google.com';" value="Go to Google" />
         }
         
