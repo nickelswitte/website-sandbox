@@ -12,13 +12,13 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- Favicon is important -->
-		<link rel="shortcut icon" href="<?php echo $root; ?>img/favicon.ico">
-		<link rel="icon" type="image/png" href="<?php echo $root; ?>img/favicon.ico" sizes="32x32">
-		<link rel="icon" type="image/png" href="<?php echo $root; ?>img/favicon.ico" sizes="96x96">
+		<link rel="shortcut icon" href="/img/favicon.ico">
+		<link rel="icon" type="image/png" href="/img/favicon.ico" sizes="32x32">
+		<link rel="icon" type="image/png" href="/img/favicon.ico" sizes="96x96">
 
-        <link rel="stylesheet" href="<?php echo $root; ?>css/style.css">
+        <link rel="stylesheet" href="/css/style.css">
 		<!-- Bootstrap -->
-		<link rel="stylesheet" href="<?php echo $root; ?>lib/bootstrap-4.3.1-dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/lib/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 
 	</head>
 

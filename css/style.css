@@ -15,3 +15,8 @@ html, body {
 #margin_top {
     margin-top: 20px;
 }
+
+.testClass {
+    max-width: 100%;
+    height: auto;
+}

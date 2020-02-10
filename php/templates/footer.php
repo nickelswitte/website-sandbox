@@ -2,9 +2,9 @@
     </div>
 
     <!-- P5 Include -->
-    <script src="<?php echo $root; ?>lib/p5/p5.js"></script>
-    <script src="<?php echo $root; ?>lib/p5/addons/p5.dom.js"></script>
-    <script src="<?php echo $root; ?>lib/p5/addons/p5.sound.js"></script>
+    <script src="/lib/p5/p5.js"></script>
+    <script src="/lib/p5/addons/p5.dom.js"></script>
+    <script src="/lib/p5/addons/p5.sound.js"></script>
 
 
     <!-- Include Sketches -->
