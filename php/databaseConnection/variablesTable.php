@@ -25,21 +25,15 @@
             // TODO close connector
         }
 
-        
-        public function getSketchesPerPage() {
-
-            $nameOfVar = 'sketchesPerPage';
-            // prepare query statement
-            // Its not possible to bind the table as a parameter, so its done with php
-
+        private function getValue($key, $valueType) {
             // SELECT value_numeric FROM variables WHERE name LIKE 'sketchesPerPage';
-            $sql = 'SELECT value_numeric FROM ' . $this->tableName . ' WHERE name LIKE ?';
+            $sql = 'SELECT ' . $valueType . ' FROM ' . $this->tableName . ' WHERE key_var LIKE ?';
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
                 
                 // Bind the name into it
-                $stmt->bind_param('s', $nameOfVar);
+                $stmt->bind_param('s', $key);
 
                 $stmt->execute();
 
@@ -48,6 +42,19 @@
                 // Return the result
                 return $result->fetch_all()[0][0];
             }
+        }
+
+        
+        public function getSketchesPerPage() {
+
+            return $this->getValue('sketchesPerPage', 'value_numeric');
+    
+        }
+
+        public function getControlsDivName() {
+
+            return $this->getValue('controlsDivName', 'value_string');
+
         }
 
     }

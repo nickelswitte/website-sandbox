@@ -17,12 +17,12 @@ const placeHolderConst = (p) => {
         c.parent("7001");
 
         button = p.createButton('click me');
-        button.addClass('btn btn-info');
-        button.parent('7001children');
+        button.addClass('btn btn-secondary');
+        button.parent('7001controlsDivName');
 
         button2 = p.createButton('click me');
-        button2.addClass('btn btn-info');
-        button2.parent('7001children');
+        button2.addClass('btn btn-secondary');
+        button2.parent('7001controlsDivName');
 
         //Prepare everything for starting
         p.resetSketch();
@@ -30,7 +30,7 @@ const placeHolderConst = (p) => {
 
     p.windowResized = function()  {
         let div = p.select('#7001').size();
-        p.resizeCanvas(div.width, div.width / 2.5);
+        p.resizeCanvas(div.width, div.width / 2);
     }
 
     //Function to reset the sketch back to normal

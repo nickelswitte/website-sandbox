@@ -18,7 +18,7 @@ const drawCirclesConst = (p) => {
 
         //Creating a button to reset
         var button = p.createButton("reset");
-        button.parent("1000");
+        button.parent("1000controlsDivName");
         button.mousePressed(p.resetSketch);
     };
     

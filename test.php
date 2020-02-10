@@ -15,22 +15,20 @@
         <div id="7001" class="card-img-top"></div>
         
         <div class="card-body">
-            <h4 class="card-title">Sketch Title</h4>
+            <h3 class="card-title">Sketch Title</h3>
             <!--<h6 class="card-subtitle mb-2 text-muted">Additional information in a subtitle</h6>-->
             
-
-            
         </div>
-
-        
 
         <ul class="list-group list-group-flush">
 
             <li class="list-group-item">
+                <h6 class="card-subtitle mb-2 text-muted">Inputs from sketch</h6>
                 <div class="row" id="7001children"></div>
             </li>
 
             <li class="list-group-item">
+                <strong>About the sketch:</strong>
                 <p class="card-text">This could be some description of the sketch with some background information.</p>
 
                 <p>
@@ -52,7 +50,7 @@
     <!-- style="width: 18rem;" -->
     <div id="margin_top" class="card" style="width: 100%;">
  
-        <div id="1001" class="card-img-top"></div>
+        <div id="1001" class="card-img-top justify-content-center"></div>
         
         <div class="card-body">
             <h5 class="card-title">Card title</h5>

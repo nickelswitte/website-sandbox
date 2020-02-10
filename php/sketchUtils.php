@@ -8,15 +8,19 @@
     include_once "phpUtils.php";
 
     function generateSketchDivs($array) {
-        // Create one html section for every result
+        // Create one sketch frame for every sketch
         for ($x = 0; $x < count($array); $x++) {
-            echo '<h3>' . $array[$x]["name"] . '</h3>';
-            echo 'Description: ' . $array[$x]["description"];
-            echo '<div id="' . $array[$x]["divID"] .  '"></div>';
+            include 'php/templates/sketchFrame.php';
         }
     }
 
     function createSketchScriptTags($array, $root) {
+
+        include_once $root . 'php/databaseConnection/variablesTable.php';
+        $variablesTable2 = new VariablesTable();
+        // Get number per page from database
+        $controlsDivName = $variablesTable2->getControlsDivName();
+
         // Create script tag for every sketch using the root variable as well as 
         // the path from the database
         for ($x = 0; $x < count($array); $x++) {

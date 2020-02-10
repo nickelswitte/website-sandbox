@@ -32,3 +32,4 @@
         ?>
 
 		<div class="container mainBody" id="container">
+			<div class="row justify-content-center">
