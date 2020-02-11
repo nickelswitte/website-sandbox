@@ -12,16 +12,23 @@ const drawCirclesConst = (p) => {
     p.setup = function() {
         var c = p.createCanvas(800, 400);
         c.parent("1000");
-
-        //Prepare everything for starting
-        p.resetSketch();
+        p.windowResized();
 
         //Creating a button to reset
         var button = p.createButton("Reset");
         button.addClass("btn btn-secondary sketchControl");
         button.parent("1000controlsDivName");
         button.mousePressed(p.resetSketch);
+
+        //Prepare everything for starting
+        p.resetSketch();
     };
+
+    p.windowResized = function()  {
+        let div = p.select('#1000').size();
+        p.resizeCanvas(div.width, div.width / 2);
+        p.resetSketch();
+    }
     
     p.draw = function() {
         //Drawing an ellipse on your mouse coordinates
@@ -30,8 +37,7 @@ const drawCirclesConst = (p) => {
 
     //Function to reset the sketch back to normal
     p.resetSketch = function() {
-        p.fill(255);
-        p.background(0);
+        p.background(245);
     }
 
     //Catching a mouse press and calling the resetSketch function
