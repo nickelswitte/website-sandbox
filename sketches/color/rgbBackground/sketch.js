@@ -23,13 +23,19 @@ const rgbBackgroundConst = (p) => {
         c.parent("1003");
 
         //Prepare everything for starting
-        p.resetSketch();
+        p.windowResized();
     };
 
     //Function to reset the sketch back to normal
     p.resetSketch = function() {
         p.fill(128);
         p.background(r, g, b);
+    }
+
+    p.windowResized = function()  {
+        let div = p.select('#1003').size();
+        p.resizeCanvas(div.width, div.width / 2);
+        p.resetSketch();
     }
     
     // The basic draw function that is called every frame
@@ -67,10 +73,10 @@ const rgbBackgroundConst = (p) => {
 
             // Print the rgb values on the screen
             p.textFont('Helvetica');
-            p.textSize(64);
-            p.text(p.prepareRgbValue(r), 180, 210);
-            p.text(p.prepareRgbValue(g), 330, 210);
-            p.text(p.prepareRgbValue(b), 480, 210);
+            p.textSize(p.width / 15);
+            p.text(p.prepareRgbValue(r), (p.width / 100) * 23, p.height / 1.9);
+            p.text(p.prepareRgbValue(g), (p.width / 100) * 43, p.height / 1.9);
+            p.text(p.prepareRgbValue(b), (p.width / 100) * 63, p.height / 1.9);
 
             // Release the current settings
             p.pop();

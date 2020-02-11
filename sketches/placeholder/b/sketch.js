@@ -15,16 +15,22 @@ const placeHolderConstB = (p) => {
         c.parent("7002");
 
         //Prepare everything for starting
-        p.resetSketch();
+        p.windowResized();
     };
+
+    p.windowResized = function()  {
+        let div = p.select('#7002').size();
+        p.resizeCanvas(div.width, div.width / 2);
+        p.resetSketch();
+    }
 
     //Function to reset the sketch back to normal
     p.resetSketch = function() {
         p.background(216, 121, 175);
         p.fill(255, 255, 255, 75);
         p.textFont('Helvetica');
-        p.textSize(64);
-        p.text("Placeholder B", 200, 210);
+        p.textSize(p.width / 20);
+        p.text("Placeholder B", p.width / 3, p.height / 2);
     };
 
 };
