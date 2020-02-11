@@ -49,6 +49,8 @@ const bbC1_1 = (p) => {
         c.parent("1001");
         //c.style('display', 'block');
 
+        p.windowResized();
+
         //Make sure everything is without borders
         p.noStroke();
         //Make it smooth
@@ -68,6 +70,11 @@ const bbC1_1 = (p) => {
         vectorY = Math.round(p.random(0, 1)) == 0 ? vectorY * (-1) : vectorY;
 
     };
+
+    p.windowResized = function()  {
+        let div = p.select('#1001').size();
+        p.resizeCanvas(div.width, div.width / 2);
+    }
     
     //This will be called every frame
     p.draw = function() {
@@ -193,7 +200,7 @@ const bbC1_1 = (p) => {
 
         p.text('speed: ' + speed, textX, textY + 2 * textLineWidth);
 
-        p.text('Click or press Space', textX, textY + 3 * textLineWidth);
+        p.text('Click or press B', textX, textY + 3 * textLineWidth);
 
 
         /**
@@ -275,7 +282,7 @@ const bbC1_1 = (p) => {
             return;
         }
 
-        if (p.key == ' ') {
+        if (p.key == 'b') {
             // Toggle mechanism for pausing the circle
             if (speed != 0) {
                 speedBackup = speed;
