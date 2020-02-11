@@ -4,6 +4,12 @@
         
         <div class="card-body">
             <h3 class="card-title"><?php echo $array[$x]['name'] ?></h3>
+            <?php
+                // Add series if one has been set
+                if ($array[$x]['series'] != null)
+                echo 'Series: ' . $array[$x]['series'];
+            ?>
+            
             <!--<h6 class="card-subtitle mb-2 text-muted">Additional information in a subtitle</h6>-->
             
         </div>
