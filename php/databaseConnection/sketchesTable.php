@@ -45,13 +45,13 @@
 
             // prepare query statement
             // Its not possible to bind the table as a parameter, so its done with php
-            $sql = 'SELECT * FROM ' . $this->tableName . ' WHERE name LIKE ? OR description LIKE ? ORDER BY timestamp DESC';
+            $sql = 'SELECT * FROM ' . $this->tableName . ' WHERE name LIKE ? OR description LIKE ? OR series LIKE ? ORDER BY timestamp DESC';
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
                 
                 // Bind the name into it
-                $stmt->bind_param('ss', $query, $query);
+                $stmt->bind_param('sss', $query, $query, $query);
 
                 $stmt->execute();
 

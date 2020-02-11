@@ -20,7 +20,7 @@
                     ?>
                         <li class="list-group-item">
                             <h6 class="card-subtitle mb-2 text-muted">Inputs from sketch</h6>
-                            <div class="row" id="<?php echo $array[$x]['divID'] ?>controlsDivName"></div>
+                            <div class="sketchControlDiv" id="<?php echo $array[$x]['divID'] ?>controlsDivName"></div>
                         </li>
                     <?php
                 }

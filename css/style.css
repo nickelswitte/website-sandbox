@@ -20,3 +20,11 @@ html, body {
     max-width: 100%;
     height: auto;
 }
+
+.sketchControlDiv {
+    /* Things will surely come */
+}
+
+.sketchControl {
+    margin: 0 0.5rem 0 0;
+}

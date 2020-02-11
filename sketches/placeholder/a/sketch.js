@@ -17,11 +17,11 @@ const placeHolderConst = (p) => {
         c.parent("7001");
 
         button = p.createButton('click me');
-        button.addClass('btn btn-secondary');
+        button.addClass('btn btn-secondary sketchControl');
         button.parent('7001controlsDivName');
 
         button2 = p.createButton('click me');
-        button2.addClass('btn btn-secondary');
+        button2.addClass('btn btn-secondary sketchControl');
         button2.parent('7001controlsDivName');
 
         //Prepare everything for starting
