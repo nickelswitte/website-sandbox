@@ -52,7 +52,7 @@
         // With this keyword a button is disabled with bootstrap
         $bootstrapKeywordDisabled = 'disabled';
 
-        $buttonPreset = '<input class="btn btn-dark" type="button" onclick="location.href=\'';
+        $buttonPreset = '<input class="btn btn-outline-secondary" type="button" onclick="location.href=\'';
 
         // Begin button group
         echo '<div class="btn-group" role="group" aria-label="Pagination buttons">';

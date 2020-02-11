@@ -1,4 +1,4 @@
-<div id="margin_top" class="card" style="width: 100%;">
+<div id="" class="card aLittleMarginBottom" style="width: 100%;">
  
         <div id="<?php echo $array[$x]['divID'] ?>" class="card-img-top"></div>
         

@@ -12,8 +12,8 @@ html, body {
     padding-top: 20px;
 }
 
-#margin_top {
-    margin-top: 20px;
+.aLittleMarginBottom {
+    margin-bottom: 1rem;
 }
 
 .testClass {

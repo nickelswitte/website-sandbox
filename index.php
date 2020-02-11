@@ -27,7 +27,7 @@
 		$page = $_GET['p'];
 	}
 
-	echo '<p class="text-muted"> Seite ' . ($page) . '</p>';
+	echo '<p class="text-muted"> Page ' . ($page) . ' of ' . $sketchesTable->getMaxNumberOfPages() . '</p>';
 
 	/**
 	 * Get resulting rows
