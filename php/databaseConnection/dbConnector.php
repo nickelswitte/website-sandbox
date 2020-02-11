@@ -42,8 +42,13 @@
             }
         }
 
+        // This is the php deconstructor, that may be called some time (but I dont know when)
         public function __deconstruct() {
-            echo "Disconnected <br>";
+            $this->mysqli->close();
+        }
+
+        // This is my deconstructor, that I can call whenever I want
+        public function deconstruct() {
             $this->mysqli->close();
         }
 

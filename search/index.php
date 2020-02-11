@@ -4,12 +4,6 @@
 	$pageTitle = 'Search Sketches';
 	include $root . 'php/templates/header.php';
 
-	// Include connector and make it avaliable under $sketches
-	include_once $root . "php/databaseConnection/sketchesTable.php";
-	
-	// Create the object to use it
-	$sketches = new SketchesTable();
-
 	// Include default search form
 	// include "searchForm.html";
 
@@ -26,7 +20,7 @@
 	echo '<p class="text-muted"> Ergebnisse zu "' . $query . '"</p>';
 
 	// Get result rows
-	$result = $sketches->search($query, "ASSOC");
+	$result = $sketchesTable->search($query, "ASSOC");
 
 	// Give a little feedback, when nothing was found
 	if ($result == NULL) {
@@ -37,7 +31,7 @@
 	// var_dump($result);
 
 	// This will generate the divs necessary for the sketches
-	generateSketchDivs($result);
+	generateSketchDivs($result, $root);
 
 	// Include footer
 	include $root . 'php/templates/footer.php';

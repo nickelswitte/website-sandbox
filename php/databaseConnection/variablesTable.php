@@ -22,7 +22,12 @@
         }
 
         public function __deconstruct() {
-            // TODO close connector
+            $this->dbConnector->deconstruct();
+        }
+
+        // For manual use
+        public function deconstruct() {
+            $this->dbConnector->deconstruct();
         }
 
         private function getValue($key, $valueType) {
@@ -55,6 +60,16 @@
 
             return $this->getValue('controlsDivName', 'value_string');
 
+        }
+
+        public function isShowPlaceholdersEnabled() {
+            $bool_int = $this->getValue('showPlaceholder', 'value_numeric');
+
+            if ($bool_int == 0) {
+                return false;
+            } else {
+                return true;
+            }
         }
 
     }

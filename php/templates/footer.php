@@ -15,6 +15,10 @@
             // Create the script tags that will load the sketches
             createSketchScriptTags($result, $root);
         }
+
+        // Close database connections
+        $sketchesTable->deconstruct();
+        $variablesTable->deconstruct();
     ?>
     
     </body>

@@ -26,6 +26,15 @@
 
         <?php
 			include_once 'navbar.php';
+
+			// Open connection to sketches table
+			include_once $root . 'php/databaseConnection/sketchesTable.php';
+			// Create the object to use it
+			$sketchesTable = new SketchesTable();
+
+			// Open connection to variables table
+			include_once $root . 'php/databaseConnection/variablesTable.php';
+			$variablesTable = new VariablesTable();
 			
 			// Include the sketch utils
 			include_once $root . 'php/sketchUtils.php';

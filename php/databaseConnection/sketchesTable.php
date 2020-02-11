@@ -26,7 +26,12 @@
         }
 
         public function __deconstruct() {
-            // TODO close connector
+            $this->dbConnector->deconstruct();
+        }
+
+        // For manual use
+        public function deconstruct() {
+            $this->dbConnector->deconstruct();
         }
 
         /**
@@ -66,9 +71,17 @@
          * the resulting rows with $limit.
          * The results are sorted from the newest to oldest.
          */
-        public function getNext($offset, $limit, $resultType) {
-            // Prepare the sql statement
-            $sql = 'SELECT * FROM ' . $this->tableName . ' ORDER BY timestamp DESC LIMIT ?,?';
+        public function getNext($offset, $limit, $resultType, $root) {
+
+            global $variablesTable;
+
+            $sql = 'SELECT * FROM ' . $this->tableName;
+            // depending on the placeholder setting, modify statement
+            if (!$variablesTable->isShowPlaceholdersEnabled()) {
+                $sql = $sql . ' WHERE NOT series LIKE "Placeholder" OR series IS NULL';
+            }
+
+            $sql = $sql . ' ORDER BY timestamp DESC LIMIT ?,?';         
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
@@ -91,10 +104,18 @@
 
         /**
          * This function will return the number of sketches that are currently
-         * in the sketches table
+         * in the sketches table.
+         * It will respect the setting to show Placeholder or not
          */
         public function getCount() {
+
+            global $variablesTable;
+
             $sql = 'SELECT count(*) FROM ' . $this->tableName;
+
+            if (!$variablesTable->isShowPlaceholdersEnabled()) {
+                $sql = $sql . ' WHERE NOT series LIKE "Placeholder" OR series IS NULL';
+            }
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
@@ -106,6 +127,22 @@
                 return $result->fetch_all()[0][0];
                 
             }
+        }
+
+        /**
+         * This function will return the max number of pages
+         * respecting the current sketchesPerPage setting
+         */
+        public function getMaxNumberOfPages() {
+            global $variablesTable;
+
+            $maxPage = $this->getCount() / $variablesTable->getSketchesPerPage();
+
+            if ($maxPage < 1) {
+                $maxPage = 1;
+            }
+
+            return $maxPage;
         }
 
     }

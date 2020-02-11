@@ -3,14 +3,6 @@
 	$root = './';
 	include $root . 'php/templates/header.php';
 
-	// Include connector and make it avaliable under $sketches
-	include $root . 'php/databaseConnection/sketchesTable.php';
-	// Create the object to use it
-	$sketches = new SketchesTable();
-
-	include $root . 'php/databaseConnection/variablesTable.php';
-	$variablesTable = new VariablesTable();
-	// Get number per page from database
 	$numPerPage = $variablesTable->getSketchesPerPage();
 	
 	// Set page default to one
@@ -23,7 +15,7 @@
 		// When p is there but its not correct
 		if (
 			$_GET['p'] <= 0 or 
-			$_GET['p'] > $sketches->getCount() or
+			$_GET['p'] > $sketchesTable->getMaxNumberOfPages() or
 			is_null($_GET['p']) or 
 			empty($_GET['p'])) {
 
@@ -41,7 +33,7 @@
 	 * Get resulting rows
 	 * Page has to be subtracted by one to account for the offset of 0 when page = 1
 	 */
-	$result = $sketches->getNext(($page - 1) * $numPerPage, $numPerPage, "ASSOC");
+	$result = $sketchesTable->getNext(($page - 1) * $numPerPage, $numPerPage, "ASSOC", $root);
 
 	// Give a little feedback, when nothing was found
 	if ($result == NULL) {
@@ -49,13 +41,11 @@
 	}
 
 	// This will generate the divs necessary for the sketches
-	generateSketchDivs($result);
+	generateSketchDivs($result, $root);
 
-
-	$lastPage = $sketches->getCount() / $numPerPage;
 
 	// Do the Pagination buttons
-	generatePaginationButtons($page, $lastPage);
+	generatePaginationButtons($page);
 	
 	// include footer
 	include $root . 'php/templates/footer.php';
