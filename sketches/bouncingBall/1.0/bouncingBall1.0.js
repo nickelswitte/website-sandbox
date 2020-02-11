@@ -31,6 +31,7 @@ const bbC1_0 = (p) => {
         var c = p.createCanvas(800, 400);
         c.parent("1002");
         //c.style('display', 'block');
+        p.windowResized();
 
         //Make sure everything is without borders
         p.noStroke();
@@ -61,6 +62,11 @@ const bbC1_0 = (p) => {
         //Set first background color
         backgroundColor = backgroundColors[0];
     };
+
+    p.windowResized = function()  {
+        let div = p.select('#1002').size();
+        p.resizeCanvas(div.width, div.width / 2);
+    }
     
     //This will be called every frame
     p.draw = function() {

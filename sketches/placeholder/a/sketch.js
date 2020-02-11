@@ -31,6 +31,7 @@ const placeHolderConst = (p) => {
     p.windowResized = function()  {
         let div = p.select('#7001').size();
         p.resizeCanvas(div.width, div.width / 2);
+        p.resetSketch();
     }
 
     //Function to reset the sketch back to normal
