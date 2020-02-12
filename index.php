@@ -4,6 +4,8 @@
 	include $root . 'php/templates/header.php';
 
 	$numPerPage = $variablesTable->getSketchesPerPage();
+
+	$lastPage = $sketchesTable->getMaxNumberOfPages();
 	
 	// Set page default to one
 	$page = 1;
@@ -27,7 +29,11 @@
 		$page = intval($_GET['p']);
 	}
 
-	echo '<p class="text-muted"> Page ' . ($page) . ' of ' . $sketchesTable->getMaxNumberOfPages() . '</p>';
+	// Only add info about pages, when where are actually multiple pages
+	if ($lastPage > 1) {
+		echo '<p class="text-muted"> Page ' . ($page) . ' of ' . $lastPage . '</p>';
+	}
+	
 
 	/**
 	 * Get resulting rows
@@ -46,8 +52,10 @@
 	generateSketchDivs($result, $root);
 
 
-	// Do the Pagination buttons
-	generatePaginationButtons($page);
+	// Do the Pagination buttons only when where are actually multiple pages
+	if ($lastPage > 1) {
+		generatePaginationButtons($page);
+	}
 	
 	// include footer
 	include $root . 'php/templates/footer.php';

@@ -17,14 +17,14 @@
 	// Save
 	$query = $_GET['q'];
 	
-	echo '<p class="text-muted"> Ergebnisse zu "' . $query . '"</p><br>';
+	echo '<p class="text-muted"> Ergebnisse zu "' . $query . '"</p>';
 
 	// Get result rows
 	$result = $sketchesTable->search($query, "ASSOC");
 
 	// Give a little feedback, when nothing was found
 	if ($result == NULL) {
-		echo "No results found";
+		echo '<p class="text-muted"> - No results found</p>';
 	} else {
 		generateSketchDivs($result, $root);
 	}

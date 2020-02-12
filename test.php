@@ -20,7 +20,7 @@
     <script src="/sketches/bouncingBall/2.0/bouncingBall.js"></script>
 
     <!-- Script for loading JSONS -->
-    <script src="/js/basics/jsonRequester.js"></script>
+    <script src="/sketches/bouncingBall/2.0/jsonRequester.js"></script>
 </div>
 
 <?php
