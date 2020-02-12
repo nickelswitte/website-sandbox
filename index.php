@@ -1,5 +1,5 @@
 <?php 
-	$pageTitle = 'Templated Page';
+	$pageTitle = 'Sketches';
 	$root = './';
 	include $root . 'php/templates/header.php';
 
