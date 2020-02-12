@@ -39,17 +39,51 @@
         }
 
         /**
+         * This will return the select statement with joins for the paths
+         * $select will specifiy if it shall return every column or something else
+         */
+        private function getJoinStringToPaths($select) {
+
+            global $variablesTable;
+
+            $sql =  'SELECT ' . $select . ' FROM ' . $this->sketchesTableName . 
+            ' INNER JOIN ' . $this->relSketchPathTableName . 
+            ' ON ' . $this->sketchesTableName . '.' . $this->sketchesPrimaryKey . ' = ' .
+            $this->relSketchPathTableName . '.' . $this->sketchesPrimaryKey .
+            ' INNER JOIN ' . $this->pathsTableName . 
+            ' ON ' . $this->relSketchPathTableName . '.' . $this->pathsPrimaryKey . ' = ' .
+            $this->pathsTableName . '.' . $this->pathsPrimaryKey;
+
+            // depending on the placeholder setting, modify statement
+            if (!$variablesTable->isShowPlaceholdersEnabled()) {
+                $sql = $sql . ' WHERE (NOT series LIKE "Placeholder" OR series IS NULL)';
+            }
+
+            return $sql;
+        }
+
+        /**
          * Basic method to search for sketches. This will search in
          * name, description
          * and return the matching rows.
          */
         public function search($query, $resultType) {
 
+            global $variablesTable;
+
             $query = "%" . $query . "%";
 
-            // prepare query statement
-            // Its not possible to bind the table as a parameter, so its done with php
-            $sql = 'SELECT * FROM ' . $this->sketchesTableName . ' WHERE name LIKE ? OR description LIKE ? OR series LIKE ? ORDER BY timestamp DESC';
+            $sql = $this->getJoinStringToPaths('*');
+
+            // When Placeholders are disabled, that means there is already a WHERE statement.
+            // There is only one where statement possible
+            if ($variablesTable->isShowPlaceholdersEnabled()) {
+                $sql = $sql . ' WHERE';
+            } else {
+                $sql = $sql . ' AND';
+            }
+
+            $sql = $sql . ' (name LIKE ? OR description LIKE ? OR series LIKE ?) ORDER BY timestamp DESC';
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
@@ -77,22 +111,10 @@
          */
         public function getNext($offset, $limit, $resultType, $root) {
 
-            global $variablesTable;
+            // Get start of query
+            $sql = $this->getJoinStringToPaths('*');
 
-            $sql = 'SELECT * FROM ' . $this->sketchesTableName . 
-                ' INNER JOIN ' . $this->relSketchPathTableName . 
-                ' ON ' . $this->sketchesTableName . '.' . $this->sketchesPrimaryKey . ' = ' .
-                $this->relSketchPathTableName . '.' . $this->sketchesPrimaryKey .
-                ' INNER JOIN ' . $this->pathsTableName . 
-                ' ON ' . $this->relSketchPathTableName . '.' . $this->pathsPrimaryKey . ' = ' .
-                $this->pathsTableName . '.' . $this->pathsPrimaryKey;
-
-
-            // depending on the placeholder setting, modify statement
-            if (!$variablesTable->isShowPlaceholdersEnabled()) {
-                $sql = $sql . ' WHERE NOT series LIKE "Placeholder" OR series IS NULL';
-            }
-
+            // Finish the statement for ordering
             $sql = $sql . ' ORDER BY timestamp DESC LIMIT ?,?';
 
             // If prepare is successful
@@ -121,13 +143,8 @@
          */
         public function getCount() {
 
-            global $variablesTable;
 
-            $sql = 'SELECT count(*) FROM ' . $this->sketchesTableName;
-
-            if (!$variablesTable->isShowPlaceholdersEnabled()) {
-                $sql = $sql . ' WHERE NOT series LIKE "Placeholder" OR series IS NULL';
-            }
+            $sql = $this->getJoinStringToPaths('COUNT(*)');
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
@@ -148,7 +165,7 @@
         public function getMaxNumberOfPages() {
             global $variablesTable;
 
-            $maxPage = $this->getCount() / $variablesTable->getSketchesPerPage();
+            $maxPage = ceil($this->getCount() / $variablesTable->getSketchesPerPage());
 
             if ($maxPage < 1) {
                 $maxPage = 1;

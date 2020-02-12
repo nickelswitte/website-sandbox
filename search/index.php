@@ -17,7 +17,7 @@
 	// Save
 	$query = $_GET['q'];
 	
-	echo '<p class="text-muted"> Ergebnisse zu "' . $query . '"</p>';
+	echo '<p class="text-muted"> Ergebnisse zu "' . $query . '"</p><br>';
 
 	// Get result rows
 	$result = $sketchesTable->search($query, "ASSOC");
@@ -25,13 +25,15 @@
 	// Give a little feedback, when nothing was found
 	if ($result == NULL) {
 		echo "No results found";
+	} else {
+		generateSketchDivs($result, $root);
 	}
 
 	// Print result
 	// var_dump($result);
 
 	// This will generate the divs necessary for the sketches
-	generateSketchDivs($result, $root);
+	
 
 	// Include footer
 	include $root . 'php/templates/footer.php';

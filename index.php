@@ -24,7 +24,7 @@
 		}
 
 		// When p is correct, take it
-		$page = $_GET['p'];
+		$page = intval($_GET['p']);
 	}
 
 	echo '<p class="text-muted"> Page ' . ($page) . ' of ' . $sketchesTable->getMaxNumberOfPages() . '</p>';
@@ -34,6 +34,8 @@
 	 * Page has to be subtracted by one to account for the offset of 0 when page = 1
 	 */
 	$result = $sketchesTable->getNext(($page - 1) * $numPerPage, $numPerPage, "ASSOC", $root);
+
+	// echo var_dump($result);
 
 	// Give a little feedback, when nothing was found
 	if ($result == NULL) {
