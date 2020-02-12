@@ -12,7 +12,11 @@
 
         // Names for configuring the connection
         private $databaseName = "sketches";
-        private $tableName = "sketches";
+        private $sketchesTableName = "sketches";
+        private $sketchesPrimaryKey = "sketchId";
+        private $pathsTableName = "paths";
+        private $pathsPrimaryKey = "pathId";
+        private $relSketchPathTableName = "relSketchPath";
 
         // Result strings
         private $assoc = "ASSOC";
@@ -45,12 +49,12 @@
 
             // prepare query statement
             // Its not possible to bind the table as a parameter, so its done with php
-            $sql = 'SELECT * FROM ' . $this->tableName . ' WHERE name LIKE ? OR description LIKE ? OR series LIKE ? ORDER BY timestamp DESC';
+            $sql = 'SELECT * FROM ' . $this->sketchesTableName . ' WHERE name LIKE ? OR description LIKE ? OR series LIKE ? ORDER BY timestamp DESC';
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
                 
-                // Bind the name into it
+                // Bind the query into it
                 $stmt->bind_param('sss', $query, $query, $query);
 
                 $stmt->execute();
@@ -75,13 +79,21 @@
 
             global $variablesTable;
 
-            $sql = 'SELECT * FROM ' . $this->tableName;
+            $sql = 'SELECT * FROM ' . $this->sketchesTableName . 
+                ' INNER JOIN ' . $this->relSketchPathTableName . 
+                ' ON ' . $this->sketchesTableName . '.' . $this->sketchesPrimaryKey . ' = ' .
+                $this->relSketchPathTableName . '.' . $this->sketchesPrimaryKey .
+                ' INNER JOIN ' . $this->pathsTableName . 
+                ' ON ' . $this->relSketchPathTableName . '.' . $this->pathsPrimaryKey . ' = ' .
+                $this->pathsTableName . '.' . $this->pathsPrimaryKey;
+
+
             // depending on the placeholder setting, modify statement
             if (!$variablesTable->isShowPlaceholdersEnabled()) {
                 $sql = $sql . ' WHERE NOT series LIKE "Placeholder" OR series IS NULL';
             }
 
-            $sql = $sql . ' ORDER BY timestamp DESC LIMIT ?,?';         
+            $sql = $sql . ' ORDER BY timestamp DESC LIMIT ?,?';
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
@@ -111,7 +123,7 @@
 
             global $variablesTable;
 
-            $sql = 'SELECT count(*) FROM ' . $this->tableName;
+            $sql = 'SELECT count(*) FROM ' . $this->sketchesTableName;
 
             if (!$variablesTable->isShowPlaceholdersEnabled()) {
                 $sql = $sql . ' WHERE NOT series LIKE "Placeholder" OR series IS NULL';
