@@ -15,7 +15,7 @@ const bbC2_0 = (p) => {
     //The array of balls to be displayed
     let balls = [];
     let configArray;
-    let pathToConfigs = './sketches/bouncingBall/2.0/configs.json';
+    let pathToConfigs = '/sketches/bouncingBall/2.0/configs.json';
 
     let modeSelection;
 

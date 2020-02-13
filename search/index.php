@@ -31,8 +31,7 @@
 
 	// Print result
 	// var_dump($result);
-
-	// This will generate the divs necessary for the sketches
+	// http://localhost:8080/sketches/bouncingBall/2.0/configs.json
 	
 
 	// Include footer
