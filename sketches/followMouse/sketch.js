@@ -52,8 +52,24 @@ const followMouseConst = (p) => {
 
     p.draw = function() {
         p.background(245);
-
+        
         var mouse = p.getMouse();
+
+        p.push();
+        p.noStroke();
+        p.fill('#698474');
+        p.quad(0, 0, p.width / 2, 0, mouse[0], mouse[1], 0, p.height / 2);
+
+        p.fill('#889e81');
+        p.quad(p.width / 2, 0, p.width, 0, p.width, p.height / 2, mouse[0], mouse[1]);
+
+        p.fill('#bac7a7');
+        p.quad(p.width, p.height / 2, p.width, p.height, p.width / 2, p.height, mouse[0], mouse[1]);
+
+        p.fill('#e5e4cc');
+        p.quad(p.width / 2, p.height, 0, p.height, 0, p.height / 2, mouse[0], mouse[1]);
+        p.pop();
+
 
         p.line(p.width / 2, 0, mouse[0], mouse[1]);
         p.line(0, p.height / 2, mouse[0], mouse[1]);
