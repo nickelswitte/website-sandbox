@@ -18,16 +18,32 @@
     }
 
 
-    function createSketchScriptTags($array, $root) {
+    /**
+     * Will generate script includes for the sketch files
+     */
+    function createSketchScriptTags($sketchIds, $root) {
 
-        // global $variablesTable;
-        // $controlsDivName = $variablesTable->getControlsDivName();
+        global $sketchesTable;
+        $pathsOfSketches = $sketchesTable->getPathsForSketches($sketchIds);
+   
+        foreach ($pathsOfSketches as $pathsOfSketch) {
+            echo '<!-- Sketch includes -->';
 
-        // Create script tag for every sketch using the root variable as well as 
-        // the path from the database
-        for ($x = 0; $x < count($array); $x++) {
-            echo '<script src="' . $root . $array[$x]["path"] . '"></script>';
+            foreach ($pathsOfSketch as $path) {
+                echo '<script src="' . $root . $path . '"></script>';
+            }
+            
         }
+    }
+
+    function getSketchIdsFromResult($result) {
+        $sketchIds = array();
+
+        for ($i = 0; $i < count($result); $i++) {
+            array_push($sketchIds, $result[$i]['sketchId']);
+        }
+
+        return $sketchIds;
     }
 
     /**

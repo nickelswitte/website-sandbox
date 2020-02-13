@@ -22,8 +22,10 @@ const bbC2_0 = (p) => {
     //This will be calles on start
     p.setup = function() {
         var c = p.createCanvas(800, 400);
-        c.parent("p504");
+        c.parent("#1004");
         //c.style('display', 'block');
+
+        p.windowResized()
 
         //Make sure everything is without borders
         p.noStroke();
@@ -36,6 +38,11 @@ const bbC2_0 = (p) => {
         loadJSON(p.onJSONLoaded, pathToConfigs);
 
     };
+
+    p.windowResized = function()  {
+        let div = p.select('#1004').size();
+        p.resizeCanvas(div.width, div.width / 2);
+    }
 
     /**
      * This method is the callback for the loadJSON function.
@@ -52,7 +59,7 @@ const bbC2_0 = (p) => {
         p.reset(configArray[0]);
 
         modeSelection = p.createSelect();
-        modeSelection.parent("p504");
+        modeSelection.parent("#1004controlsDivName");
         modeSelection.id("bbSelect");
 
         configArray.forEach(function(e) {

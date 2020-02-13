@@ -62,14 +62,8 @@
 
         }
 
-        public function isShowPlaceholdersEnabled() {
-            $bool_int = $this->getValue('showPlaceholder', 'value_numeric');
-
-            if ($bool_int == 0) {
-                return false;
-            } else {
-                return true;
-            }
+        public function getSketchViewLevel() {
+            return $this->getValue('sketchViewLevel', 'value_numeric');
         }
 
     }

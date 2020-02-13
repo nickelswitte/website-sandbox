@@ -20,6 +20,11 @@
 		<!-- Bootstrap -->
 		<link rel="stylesheet" href="/lib/bootstrap-4.3.1-dist/css/bootstrap.min.css">
 
+		<!-- P5 Include -->
+		<script src="/lib/p5/p5.js"></script>
+		<script src="/lib/p5/addons/p5.dom.js"></script>
+		<script src="/lib/p5/addons/p5.sound.js"></script>
+
 	</head>
 
 	<body>

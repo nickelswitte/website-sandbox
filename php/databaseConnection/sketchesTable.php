@@ -39,27 +39,44 @@
         }
 
         /**
-         * This will return the select statement with joins for the paths
-         * $select will specifiy if it shall return every column or something else
+         * This will return the basic select statement for the sketches
+         * $select will be inserted into the colum part of the statement and specifies what to return
+         * $join will create the select statement to join the tables with the paths
+         * 
+         * The returned statement will always use a WHERE
          */
-        private function getJoinStringToPaths($select) {
+        private function getSqlString($select) {
 
             global $variablesTable;
 
-            $sql =  'SELECT ' . $select . ' FROM ' . $this->sketchesTableName . 
-            ' INNER JOIN ' . $this->relSketchPathTableName . 
-            ' ON ' . $this->sketchesTableName . '.' . $this->sketchesPrimaryKey . ' = ' .
-            $this->relSketchPathTableName . '.' . $this->sketchesPrimaryKey .
-            ' INNER JOIN ' . $this->pathsTableName . 
-            ' ON ' . $this->relSketchPathTableName . '.' . $this->pathsPrimaryKey . ' = ' .
-            $this->pathsTableName . '.' . $this->pathsPrimaryKey;
+            $sql =  'SELECT ' . $select . ' FROM ' . $this->sketchesTableName;        
 
-            // depending on the placeholder setting, modify statement
-            if (!$variablesTable->isShowPlaceholdersEnabled()) {
-                $sql = $sql . ' WHERE (NOT series LIKE "Placeholder" OR series IS NULL)';
+            // modify the query depending on the viewlevel setting
+            $viewLevel = $variablesTable->getSketchViewLevel();
+
+            if ($viewLevel == 1) {
+                // Show normal sketches + placeholders
+                $sql = $sql . ' WHERE (hidden IS NULL OR hidden LIKE "placeholder")';
+            } else if ($viewLevel == 2) {
+                // Show all sketches (normal + placeholder + hidden)
+                $sql = $sql . ' WHERE (TRUE)';
+            } else {
+                // In case of view level == 0 and any other (mistaken) number show only normal sketches
+                $sql = $sql . ' WHERE (hidden IS NULL)';
             }
 
             return $sql;
+        }
+
+        private function getSqlJoinString($select) {
+            return 'SELECT ' . $select . ' FROM ' . $this->sketchesTableName . 
+                ' INNER JOIN ' . $this->relSketchPathTableName . 
+                ' ON ' . $this->sketchesTableName . '.' . $this->sketchesPrimaryKey . ' = ' .
+                $this->relSketchPathTableName . '.' . $this->sketchesPrimaryKey .
+                ' INNER JOIN ' . $this->pathsTableName . 
+                ' ON ' . $this->relSketchPathTableName . '.' . $this->pathsPrimaryKey . ' = ' .
+                $this->pathsTableName . '.' . $this->pathsPrimaryKey;
+            
         }
 
         /**
@@ -73,17 +90,9 @@
 
             $query = "%" . $query . "%";
 
-            $sql = $this->getJoinStringToPaths('*');
+            $sql = $this->getSqlString('*');
 
-            // When Placeholders are disabled, that means there is already a WHERE statement.
-            // There is only one where statement possible
-            if ($variablesTable->isShowPlaceholdersEnabled()) {
-                $sql = $sql . ' WHERE';
-            } else {
-                $sql = $sql . ' AND';
-            }
-
-            $sql = $sql . ' (name LIKE ? OR description LIKE ? OR series LIKE ?) ORDER BY timestamp DESC';
+            $sql = $sql . ' AND (name LIKE ? OR description LIKE ? OR series LIKE ?) ORDER BY timestamp DESC';
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
@@ -109,13 +118,15 @@
          * the resulting rows with $limit.
          * The results are sorted from the newest to oldest.
          */
-        public function getNext($offset, $limit, $resultType, $root) {
+        public function getNext($offset, $limit, $resultType) {
 
             // Get start of query
-            $sql = $this->getJoinStringToPaths('*');
+            $sql = $this->getSqlString('*');
 
             // Finish the statement for ordering
             $sql = $sql . ' ORDER BY timestamp DESC LIMIT ?,?';
+
+            // echo $sql;
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
@@ -137,6 +148,70 @@
         }
 
         /**
+         * Will return an multidimensional array of the paths to the given sketchIds
+         * Array structure:
+         * key [sketchId] - value [array[paths]]
+         * 
+         * When two of the same paths are used, only one will be included
+         * 
+         */
+        public function getPathsForSketches($sketchIds) {
+            // Get the first part of the SQL string
+            $sql = $this->getSqlJoinString('sketches.sketchId, paths.pathId, path') . ' WHERE';
+
+            // Cycle through the ids and build the query
+            for ($i = 0; $i < count($sketchIds); $i++) {
+                // append something like 'sketches.sketchId = 10'
+                $sql = $sql . ' ' . $this->sketchesTableName . '.' . $this->sketchesPrimaryKey . ' = ' . $sketchIds[$i];
+
+                // Append an OR to all except the last
+                if ($i < count($sketchIds) - 1) {
+                    $sql = $sql . ' OR';
+                }
+            }
+
+            // Send the query to the database
+            if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
+
+                $stmt->execute();
+
+                $result = $stmt->get_result();
+
+                // echo var_dump($result->fetch_all(MYSQLI_ASSOC));
+                // return $result->fetch_all();
+                // return $result->fetch_all(MYSQLI_ASSOC);
+            }
+
+            // Transform the array from database to a more usable array for later use
+
+            // empty array to return
+            $return_array = array();
+            $usedPaths = array();
+
+            // Loop through the array from database
+            foreach ($result as $row) {
+
+                // Get the sketchId
+                $sketchId = $row['sketchId'];
+
+                // When the sketchId hasnt been added yet, create a new key and empty array
+                if (!array_key_exists($sketchId, $return_array)) {
+                    $return_array[$sketchId] = array();
+                }
+
+                // Add a path, but dont do it, when is has already been added
+                if (!in_array($row['pathId'], $usedPaths)) {
+                    array_push($usedPaths, $row['pathId']);
+                    array_push($return_array[$sketchId], $row['path']);
+                }
+                
+            }
+
+            // echo var_dump($return_array);
+            return $return_array;
+        }
+
+        /**
          * This function will return the number of sketches that are currently
          * in the sketches table.
          * It will respect the setting to show Placeholder or not
@@ -144,7 +219,7 @@
         public function getCount() {
 
 
-            $sql = $this->getJoinStringToPaths('COUNT(*)');
+            $sql = $this->getSqlString('COUNT(*)');
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {

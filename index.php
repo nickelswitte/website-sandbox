@@ -39,7 +39,7 @@
 	 * Get resulting rows
 	 * Page has to be subtracted by one to account for the offset of 0 when page = 1
 	 */
-	$result = $sketchesTable->getNext(($page - 1) * $numPerPage, $numPerPage, "ASSOC", $root);
+	$result = $sketchesTable->getNext(($page - 1) * $numPerPage, $numPerPage, "ASSOC");
 
 	// echo var_dump($result);
 
@@ -48,7 +48,7 @@
 		echo "No results found <br>";
 	}
 
-	// This will generate the divs necessary for the sketches
+	// This will generate the frames for the sketches
 	generateSketchDivs($result, $root);
 
 

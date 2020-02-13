@@ -9,3 +9,5 @@ CREATE TABLE relSketchPath (
 
 
     SELECT name, paths.path FROM sketches INNER JOIN relSketchPath ON sketches.sketchId = relSketchPath.sketchId INNER JOIN paths ON relSketchPath.pathId = paths.pathId;
+
+    SELECT sketches.sketchId, name, paths.pathId, path FROM sketches INNER JOIN relSketchPath ON sketches.sketchId = relSketchPath.sketchId INNER JOIN paths ON relSketchPath.pathId = paths.pathId ORDER BY timestamp;
