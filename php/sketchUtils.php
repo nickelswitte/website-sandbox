@@ -13,6 +13,7 @@
     function generateSketchDivs($array, $root) {
         // Create one sketch frame for every sketch
         for ($x = 0; $x < count($array); $x++) {
+            $sketch = $array[$x];
             include $root . 'php/templates/sketchFrame.php';
         }
     }

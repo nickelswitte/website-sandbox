@@ -28,3 +28,11 @@ html, body {
 .sketchControl {
     margin: 0 0.5rem 0 0;
 }
+
+.h1link {
+    color: #212529;
+}
+
+.h1link:hover {
+    color: #212529;
+}

@@ -218,7 +218,6 @@
          */
         public function getCount() {
 
-
             $sql = $this->getSqlString('COUNT(*)');
 
             // If prepare is successful
@@ -229,6 +228,36 @@
                 $result = $stmt->get_result();
                 
                 return $result->fetch_all()[0][0];
+                
+            }
+        }
+
+        public function checkIfSketchExists($sketchId) {
+            $sql = $this->getSqlString('COUNT(*)');
+
+            // Finish the statement
+            $sql = $sql . ' AND sketchId = ?';
+
+            // If prepare is successful
+            if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
+
+                // Bind the parameters to it
+                $stmt->bind_param('d', $sketchId);
+                
+                $stmt->execute();
+
+                $result = $stmt->get_result();
+                
+                // Get count of sketch
+                $countVar = $result->fetch_all()[0][0];
+                
+                if ($countVar == 1) {
+                    return true;
+                } else {
+                    // When none or multiple sketchId's exist, then return false
+                    return false;
+                }
+            
                 
             }
         }
@@ -247,6 +276,32 @@
             }
 
             return $maxPage;
+        }
+
+        public function getSingleSketchUsingId($sketchId) {
+            // Get start of query
+            $sql = $this->getSqlString('*');
+
+            // Finish the statement
+            $sql = $sql . ' AND sketchId = ?';
+
+            // If prepare is successful
+            if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
+                
+                // Bind the parameters to it
+                $stmt->bind_param('s', $sketchId);
+
+                $stmt->execute();
+
+                $result = $stmt->get_result();
+
+                // Put this in an array so it works with all other functions
+                $array = array();
+                $array[0] = $result->fetch_assoc();
+
+                return $array;
+
+            }
         }
 
     }

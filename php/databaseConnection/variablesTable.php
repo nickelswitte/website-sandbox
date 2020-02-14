@@ -66,6 +66,10 @@
             return $this->getValue('sketchViewLevel', 'value_numeric');
         }
 
+        public function getHashNumber() {
+            return $this->getValue('uniqueIdPrimeValue', 'value_numeric');
+        }
+
     }
     
 ?>
