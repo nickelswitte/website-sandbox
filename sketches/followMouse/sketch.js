@@ -17,6 +17,8 @@ const followMouseConst = (p) => {
         p.windowResized();
         c.parent("#1005");
 
+        p.noCursor();
+
     };
 
     p.windowResized = function()  {
@@ -84,7 +86,7 @@ const followMouseConst = (p) => {
         p.circle(p.width, p.height / 2, 10);
     }
 
-    //Catching a mouse press and calling the resetSketch function
+    //Catching a mouse press
     p.mousePressed = function() {
         if (
             (p.mouseX >= 0 && p.mouseX <= p.width) &&

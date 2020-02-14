@@ -6,7 +6,7 @@
 
 ?>
 
-    <div id="1005" style="width: 100%;"> 
+    <div id="1006" style="width: 100%;"> 
 
     </div>
 
@@ -16,7 +16,7 @@
     <script src="/lib/p5/addons/p5.sound.js"></script>
 
     <!-- <script src="./sketches/color/rgbBackground/sketch.js"></script> -->
-    <script src="/sketches/followMouse/sketch.js"></script>
+    <script src="/sketches/draw/sketch.js"></script>
     
 </div>
 
