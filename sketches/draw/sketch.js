@@ -66,6 +66,9 @@ const drawLinesConst = (p) => {
 
     p.drawLine = function() {
 
+        /**
+         * When lastPoint is empty, start at current point
+         */
         if (lastPoint.length == 0) {
             lastPoint[0] = p.mouseX;
             lastPoint[1] = p.mouseY;
@@ -73,30 +76,24 @@ const drawLinesConst = (p) => {
 
         p.line(lastPoint[0], lastPoint[1], p.mouseX, p.mouseY);
 
+        // Save the current point as last point for next time
         lastPoint[0] = p.mouseX;
         lastPoint[1] = p.mouseY;
 
     }
 
-    p.mouseDragged = function() {
-        if (
-            (p.mouseX >= 0 && p.mouseX <= p.width) &&
-            (p.mouseY >= 0 && p.mouseY <= p.height)
-        ) {
-            
-        }
-
+    /**
+     * When mouse is dragged, draw the line
+     */
+    p.mouseDragged = function() {       
         p.drawLine();
-        
     };
 
+    /**
+     * When mouse is released, empty last point to make a line stop
+     */
     p.mouseReleased = function() {
-        if (
-            (p.mouseX >= 0 && p.mouseX <= p.width) &&
-            (p.mouseY >= 0 && p.mouseY <= p.height)
-        ) {
-            lastPoint = [];
-        }
+        lastPoint = [];
     }
 
 };
