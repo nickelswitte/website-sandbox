@@ -1,12 +1,14 @@
 
 /**
+ * unique_id = fwM
+ * 
  * This is a placeholder
  * 
  * Author:  Nickels Witte
  * Date:    13.2.2020
  * Version  1.0
  */
-const followMouseConst = (p) => {
+const fwMConst = (p) => {
 
     var mouseFlipped;
     
@@ -15,14 +17,14 @@ const followMouseConst = (p) => {
 
         var c = p.createCanvas(800, 400);
         p.windowResized();
-        c.parent("#1005");
+        c.parent(fwM.sketchDivId);
 
         p.noCursor();
 
     };
 
     p.windowResized = function()  {
-        let div = p.select('#1005').size();
+        let div = p.select(fwM.sketchDivId).size();
         p.resizeCanvas(div.width, div.width / 2);
         p.resetSketch();
     }
@@ -100,4 +102,4 @@ const followMouseConst = (p) => {
 };
 
 //Creating the object
-let fmc = new p5(followMouseConst);
+let fwMSketch = new p5(fwMConst);

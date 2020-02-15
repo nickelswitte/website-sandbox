@@ -1,4 +1,6 @@
 /**
+ * unique_id = bb1_1
+ * 
  * This sketch is about a bouncing ball quite like the
  * DVD logo back on old tv's that bounces around the
  * screen.
@@ -7,7 +9,7 @@
  * Date:    28.04.2019
  * Version: 1.1
  */
-const bbC1_1 = (p) => {
+const bb1_1Const = (p) => {
 
     //Coordinates of the ball
     let x;
@@ -46,7 +48,7 @@ const bbC1_1 = (p) => {
     //This will be calles on start
     p.setup = function() {
         var c = p.createCanvas(800, 400);
-        c.parent("1001");
+        c.parent(bb1_1.sketchDivId);
         //c.style('display', 'block');
 
         p.windowResized();
@@ -72,7 +74,7 @@ const bbC1_1 = (p) => {
     };
 
     p.windowResized = function()  {
-        let div = p.select('#1001').size();
+        let div = p.select(bb1_1.sketchDivId).size();
         p.resizeCanvas(div.width, div.width / 2);
     }
     
@@ -297,4 +299,4 @@ const bbC1_1 = (p) => {
 };
 
 //Create the object.
-let bb1_1 = new p5(bbC1_1);
+let bb1_1Sketch = new p5(bb1_1Const);

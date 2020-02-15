@@ -103,14 +103,31 @@
         echo $lastButton;
 
         echo '</div>';
-
-        /*
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">Left</button>
-                <button type="button" class="btn btn-secondary">Middle</button>
-                <button type="button" class="btn btn-secondary">Right</button>
-            </div>  
-        */
         
+    }
+
+    /**
+     * This function will generate javascript variables for the sketches.
+     * This way information can be given from php (and database) into the sketches
+     */
+    function generateJavascriptVariablesForSketch($result) {
+
+        global $variablesTable;
+
+        echo '<script>';
+        echo '/* Hello curious. This are just some variables for the sketches. Nothing too important ;) */';
+        
+        foreach ($result as $sketch) {
+            // Creating an empty object
+            echo 'var ' . $sketch['variableName'] . ' = {};';
+
+            // E.g. someSketch.sketchDivId = "someSketch";
+            echo $sketch['variableName'] . '.sketchDivId = "#' . $sketch['variableName'] . '";';
+
+            // E.g. someSketch.controlsDivId = "someSketchcontrols";
+            echo $sketch['variableName'] . '.controlsDivId = "#' . $sketch['variableName'] . $variablesTable->getControlsDivName() . '";';
+        }
+
+        echo '</script>';
     }
 ?>

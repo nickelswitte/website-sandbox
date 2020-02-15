@@ -8,8 +8,9 @@
     <?php
 
         if (isset($result)) {
-            // Create the script tags that will load the sketches
+            // Create all the script tags to all the sketches
             createSketchScriptTags(getSketchIdsFromResult($result), $root);
+            generateJavascriptVariablesForSketch($result);
         }
 
         // Close database connections

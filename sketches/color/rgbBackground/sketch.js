@@ -1,5 +1,8 @@
 
 /**
+ * 
+ * unique_id = rgb_bg
+ * 
  * This is the first sketch I created and should just be an easy demo
  * on what to do with p5 and how to use it.
  * 
@@ -7,7 +10,7 @@
  * Date:    1.1.2020
  * Version  1.0
  */
-const rgbBackgroundConst = (p) => {
+const rgb_bgConst = (p) => {
 
     // This variable determines which of the rgb values should be changed
     let rgbMouseMode = 0;
@@ -20,7 +23,7 @@ const rgbBackgroundConst = (p) => {
     // Setup function
     p.setup = function() {
         var c = p.createCanvas(800, 400);
-        c.parent("1003");
+        c.parent(rgb_bg.sketchDivId);
 
         //Prepare everything for starting
         p.windowResized();
@@ -33,7 +36,7 @@ const rgbBackgroundConst = (p) => {
     }
 
     p.windowResized = function()  {
-        let div = p.select('#1003').size();
+        let div = p.select(rgb_bg.sketchDivId).size();
         p.resizeCanvas(div.width, div.width / 2);
         p.resetSketch();
     }
@@ -126,4 +129,4 @@ const rgbBackgroundConst = (p) => {
 };
 
 //Creating the object
-let rgb_bg = new p5(rgbBackgroundConst);
+let rgb_bgSketch = new p5(rgb_bgConst);

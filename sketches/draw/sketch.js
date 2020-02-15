@@ -1,12 +1,12 @@
 
 /**
- * This is a placeholder
+ * uniqueId: drPr
  * 
  * Author:  Nickels Witte
  * Date:    13.2.2020
  * Version  1.0
  */
-const drawLinesConst = (p) => {
+const drPrConst = (p) => {
 
     var lastPoint;
     let slider;
@@ -16,7 +16,7 @@ const drawLinesConst = (p) => {
     p.setup = function() {
 
         var c = p.createCanvas(800, 400);
-        c.parent("#1006");
+        c.parent(drPr.sketchDivId);
         p.frameRate(60);
 
         lastPoint = [];
@@ -25,26 +25,26 @@ const drawLinesConst = (p) => {
         button = p.createButton('Reset Sketch');
         button.addClass('btn btn-secondary sketchControl');
         button.mousePressed(p.resetSketch);
-        button.parent('#1006controlsDivName');
+        button.parent(drPr.controlsDivId);
 
         slider = p.createSlider(1, 40, 2);
         slider.style('width', '10rem');
         slider.addClass('slider sketchControl');
         slider.input(p.updateStrokeWeight);
-        slider.parent('#1006controlsDivName');
+        slider.parent(drPr.controlsDivId);
 
 
         colorPicker = p.createColorPicker(100);
         colorPicker.input(p.updateStroke);
         colorPicker.addClass('sketchControl');
-        colorPicker.parent('#1006controlsDivName');
+        colorPicker.parent(drPr.controlsDivId);
 
         p.windowResized();
 
     };
 
     p.windowResized = function()  {
-        let div = p.select('#1006').size();
+        let div = p.select(drPr.sketchDivId).size();
         p.resizeCanvas(div.width, div.width / 2);
         p.resetSketch();
     }
@@ -99,4 +99,4 @@ const drawLinesConst = (p) => {
 };
 
 //Creating the object
-let dlc = new p5(drawLinesConst);
+let drPrSketch = new p5(drPrConst);

@@ -1,5 +1,7 @@
 
 /**
+ * unique_id = drC
+ * 
  * This is the first sketch I created and should just be an easy demo
  * on what to do with p5 and how to use it.
  * 
@@ -7,17 +9,17 @@
  * Date:    27.4.2019
  * Version  1.0
  */
-const drawCirclesConst = (p) => {
+const drCConst = (p) => {
     
     p.setup = function() {
         var c = p.createCanvas(800, 400);
-        c.parent("1000");
+        c.parent(drC.sketchDivId);
         p.windowResized();
 
         //Creating a button to reset
         var button = p.createButton("Reset");
         button.addClass("btn btn-secondary sketchControl");
-        button.parent("1000controlsDivName");
+        button.parent(drC.controlsDivId);
         button.mousePressed(p.resetSketch);
 
         //Prepare everything for starting
@@ -25,7 +27,7 @@ const drawCirclesConst = (p) => {
     };
 
     p.windowResized = function()  {
-        let div = p.select('#1000').size();
+        let div = p.select(drC.sketchDivId).size();
         p.resizeCanvas(div.width, div.width / 2);
         p.resetSketch();
     }
@@ -54,4 +56,4 @@ const drawCirclesConst = (p) => {
 };
 
 //Creating the object
-let dc1_0 = new p5(drawCirclesConst);
+let drCSketch = new p5(drCConst);

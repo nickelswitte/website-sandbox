@@ -1,4 +1,6 @@
 /**
+ * uniqueId = bb2_0
+ * 
  * This sketch is about a bouncing ball quite like the
  * DVD logo back on old tv's that bounces around the
  * screen.
@@ -10,7 +12,7 @@
  * Date:    02.05.2019
  * Version: 1.2
  */
-const bbC2_0 = (p) => {
+const bb2_0Const = (p) => {
 
     //The array of balls to be displayed
     let balls = [];
@@ -22,7 +24,7 @@ const bbC2_0 = (p) => {
     //This will be calles on start
     p.setup = function() {
         var c = p.createCanvas(800, 400);
-        c.parent("#1004");
+        c.parent(bb2_0.sketchDivId);
         //c.style('display', 'block');
 
         p.windowResized()
@@ -40,7 +42,7 @@ const bbC2_0 = (p) => {
     };
 
     p.windowResized = function()  {
-        let div = p.select('#1004').size();
+        let div = p.select(bb2_0.sketchDivId).size();
         p.resizeCanvas(div.width, div.width / 2);
     }
 
@@ -59,7 +61,7 @@ const bbC2_0 = (p) => {
         p.reset(configArray[0]);
 
         modeSelection = p.createSelect();
-        modeSelection.parent("#1004controlsDivName");
+        modeSelection.parent("#" + bb2_0.controlsDivId);
         modeSelection.id("bbSelect");
 
         configArray.forEach(function(e) {
@@ -191,7 +193,7 @@ const bbC2_0 = (p) => {
 
 
 //Create the object.
-let bb2_0 = new p5(bbC2_0);
+let bb2_0Sketch = new p5(bb2_0Const);
 
     
 

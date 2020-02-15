@@ -70,6 +70,10 @@
             return $this->getValue('uniqueIdPrimeValue', 'value_numeric');
         }
 
+        public function getSketchDivPrefix() {
+            return $this->getValue('sketchDivPrefix', 'value_string');
+        }
+
     }
     
 ?>

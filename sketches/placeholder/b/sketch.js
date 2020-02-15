@@ -1,5 +1,7 @@
 
 /**
+ * unique_id = ph_b
+ * 
  * This is the first sketch I created and should just be an easy demo
  * on what to do with p5 and how to use it.
  * 
@@ -7,19 +9,19 @@
  * Date:    1.1.2020
  * Version  1.0
  */
-const placeHolderConstB = (p) => {
+const ph_bConst = (p) => {
     
     // Setup function
     p.setup = function() {
         var c = p.createCanvas(800, 400);
-        c.parent("7002");
+        c.parent(ph_b.sketchDivId);
 
         //Prepare everything for starting
         p.windowResized();
     };
 
     p.windowResized = function()  {
-        let div = p.select('#7002').size();
+        let div = p.select(ph_b.sketchDivId).size();
         p.resizeCanvas(div.width, div.width / 2);
         p.resetSketch();
     }
@@ -36,4 +38,4 @@ const placeHolderConstB = (p) => {
 };
 
 //Creating the object
-let ph_b = new p5(placeHolderConstB);
+let ph_bSketch = new p5(ph_bConst);

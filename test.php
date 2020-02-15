@@ -4,8 +4,14 @@
     include $root . 'php/templates/header.php';
 ?>
 
-    <div id="1006" style="width: 100%;"> </div>
-    <div id="1006controlsDivName"></div>
+    <script>
+        var test = {};
+        test.sketchDivId = '#sketchDiv';
+        test.controlsDivId = '#controlsDiv';
+    </script>
+
+    <div id="sketchDiv" style="width: 100%;"></div>
+    <div id="controlsDiv"></div>
 
 
     <script src="/lib/p5/p5.js"></script>
@@ -13,7 +19,7 @@
     <script src="/lib/p5/addons/p5.sound.js"></script>
 
     <!-- <script src="./sketches/color/rgbBackground/sketch.js"></script> -->
-    <script src="/sketches/draw/sketch.js"></script>
+    <script src="/sketches/draw/bezierCurveTests.js"></script>
 
 <?php
 

@@ -1,5 +1,7 @@
 
 /**
+ * unique_id = ph_a
+ * 
  * This is the first sketch I created and should just be an easy demo
  * on what to do with p5 and how to use it.
  * 
@@ -7,29 +9,29 @@
  * Date:    1.1.2020
  * Version  1.0
  */
-const placeHolderConst = (p) => {
+const ph_aConst = (p) => {
     
     // Setup function
     p.setup = function() {
 
         var c = p.createCanvas(800, 400);
         p.windowResized();
-        c.parent("7001");
+        c.parent(ph_a.sketchDivId);
 
         button = p.createButton('click me');
         button.addClass('btn btn-secondary sketchControl');
-        button.parent('7001controlsDivName');
+        button.parent(ph_a.controlsDivId);
 
         button2 = p.createButton('click me');
         button2.addClass('btn btn-secondary sketchControl');
-        button2.parent('7001controlsDivName');
+        button2.parent(ph_a.controlsDivId);
 
         //Prepare everything for starting
         p.resetSketch();
     };
 
     p.windowResized = function()  {
-        let div = p.select('#7001').size();
+        let div = p.select(ph_a.sketchDivId).size();
         p.resizeCanvas(div.width, div.width / 2);
         p.resetSketch();
     }
@@ -51,4 +53,4 @@ const placeHolderConst = (p) => {
 };
 
 //Creating the object
-let ph_a = new p5(placeHolderConst);
+let ph_aSketch = new p5(ph_aConst);
