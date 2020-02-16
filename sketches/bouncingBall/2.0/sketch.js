@@ -61,7 +61,7 @@ const bb2_0Const = (p) => {
         p.reset(configArray[0]);
 
         modeSelection = p.createSelect();
-        modeSelection.parent("#" + bb2_0.controlsDivId);
+        modeSelection.parent(bb2_0.controlsDivId);
         modeSelection.id("bbSelect");
 
         configArray.forEach(function(e) {

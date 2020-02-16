@@ -20,7 +20,7 @@ const drawLinesConst = (p) => {
 
         var c = p.createCanvas(800, 400);
         c.parent(test.sketchDivId);
-        p.frameRate(30);
+        p.frameRate(100);
 
         lastPoints = [];
 
