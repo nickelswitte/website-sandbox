@@ -21,6 +21,19 @@
         
         echo '<p class="text-muted"> Showing Sketch "' . $result[0]['name'] . '"</p>';
         generateSketchDivs($result, $root);
+
+        // Get paths of sketch
+        $pathsOfSketch = $sketchesTable->getPathsForSketches(array($sketchIdFromUrl));
+
+        
+        for ($i = 0; $i < count($pathsOfSketch[$sketchIdFromUrl]); $i++) {
+            echo '<pre class="line-numbers" style="max-height: 1000px; width: 100%;"><code class="language-javascript">';
+            // echo $root . $pathsOfSketch[$sketchIdFromUrl][$i];
+            readfile($root . $pathsOfSketch[$sketchIdFromUrl][$i]);
+            echo '</code></pre>';
+        }
+        
+            
     }
 	
 

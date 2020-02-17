@@ -1,13 +1,13 @@
 <?php
-    $pageTitle = 'Test page';
-    $root = './';
+    $pageTitle = 'Test2 page';
+    $root = '../';
     include $root . 'php/templates/header.php';
 ?>
 
     <script>
-        var test = {};
-        test.sketchDivId = '#sketchDiv';
-        test.controlsDivId = '#controlsDiv';
+        var crvTests = {};
+        crvTests.sketchDivId = '#sketchDiv';
+        crvTests.controlsDivId = '#controlsDiv';
     </script>
 
     <div id="sketchDiv" style="width: 100%;"></div>
@@ -19,7 +19,7 @@
     <script src="/lib/p5/addons/p5.sound.js"></script>
 
     <!-- <script src="./sketches/color/rgbBackground/sketch.js"></script> -->
-    <script src="/sketches/draw/bezierCurveTests.js"></script>
+    <script src="/sketches/draw/curveTests.js"></script>
 
 <?php
 

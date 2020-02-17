@@ -17,6 +17,8 @@
         $sketchesTable->deconstruct();
         $variablesTable->deconstruct();
     ?>
+
+        <script src="/lib/prism/default-theme/prism.js"></script>
     
     </body>
 
