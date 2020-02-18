@@ -25,16 +25,33 @@
         // Get paths of sketch
         $pathsOfSketch = $sketchesTable->getPathsForSketches(array($sketchIdFromUrl));
 
-        
-        for ($i = 0; $i < count($pathsOfSketch[$sketchIdFromUrl]); $i++) {
-            echo '<pre class="line-numbers" style="max-height: 1000px; width: 100%;"><code class="language-javascript">';
-            // echo $root . $pathsOfSketch[$sketchIdFromUrl][$i];
-            readfile($root . $pathsOfSketch[$sketchIdFromUrl][$i]);
-            echo '</code></pre>';
-        }
-        
-            
+        ?>
+
+        <p>
+            <button id="buttonSourceCode" class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseSourceCode" aria-expanded="false" aria-controls="collapseSourceCode">
+                Show Source Code
+            </button>
+        </p>
+        <div class="collapse" id="collapseSourceCode" style="width: 100%;">
+            <div id="sourceCodeContent" class="card card-body" style="width: 100%;">
+                <?php
+                    
+                    // Print syntax highlighting for each file
+                    for ($i = 0; $i < count($pathsOfSketch[$sketchIdFromUrl]); $i++) {
+                        echo '<pre class="line-numbers" style="width: 100%;"><code class="language-javascript">';
+                        // echo $root . $pathsOfSketch[$sketchIdFromUrl][$i];
+                        readfile($root . $pathsOfSketch[$sketchIdFromUrl][$i]);
+                        echo '</code></pre>';
+                    }
+                    
+                ?>
+            </div>
+        </div>
+
+        <?php     
     }
+
+    
 	
 
 	// Include footer
