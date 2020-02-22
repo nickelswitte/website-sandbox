@@ -36,3 +36,7 @@ html, body {
 .h1link:hover {
     color: #212529;
 }
+
+#headingOne {
+    cursor: pointer;
+}

@@ -27,26 +27,47 @@
 
         ?>
 
-        <p>
-            <button id="buttonSourceCode" class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseSourceCode" aria-expanded="false" aria-controls="collapseSourceCode">
-                Show Source Code
-            </button>
-        </p>
-        <div class="collapse" id="collapseSourceCode" style="width: 100%;">
-            <div id="sourceCodeContent" class="card card-body" style="width: 100%;">
-                <?php
-                    
-                    // Print syntax highlighting for each file
-                    for ($i = 0; $i < count($pathsOfSketch[$sketchIdFromUrl]); $i++) {
-                        echo '<pre class="line-numbers" style="width: 100%;"><code class="language-javascript">';
-                        // echo $root . $pathsOfSketch[$sketchIdFromUrl][$i];
-                        readfile($root . $pathsOfSketch[$sketchIdFromUrl][$i]);
-                        echo '</code></pre>';
-                    }
-                    
-                ?>
+        <div id="accordion" style="width: 100%;">
+            <div class="card">
+                <div class="card-header" id="headingOne" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                    <h5 class="mb-0">
+                        
+                        Source code
+                        
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="card-body">
+                        <?php
+                            
+                            // Print syntax highlighting for each file
+                            for ($i = 0; $i < count($pathsOfSketch[$sketchIdFromUrl]); $i++) {
+                                echo '<pre class="line-numbers" style="width: 100%;"><code class="language-javascript">';
+                                // echo $root . $pathsOfSketch[$sketchIdFromUrl][$i];
+                                readfile($root . $pathsOfSketch[$sketchIdFromUrl][$i]);
+                                echo '</code></pre>';
+                            }
+                            
+                        ?>
+
+                    </div>
+                </div>
             </div>
+            
         </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                
+                $('#collapseOne').on('shown.bs.collapse', function () {
+                    var element = document.getElementById('accordion');
+                    element.scrollIntoView({block: "start", behavior: "smooth"});
+                });
+                
+            });
+
+        </script>
 
         <?php     
     }
