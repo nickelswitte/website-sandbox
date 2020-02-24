@@ -218,7 +218,7 @@ const crvTestsConst = (p) => {
         }
 
 
-        // Bezier + curves
+        // Bezier + 2 curves
         p.writeHeading('Bezier +', 1000, 50);
         p.push();
         p.fill(255, 0, 0);

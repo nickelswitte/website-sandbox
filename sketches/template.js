@@ -24,6 +24,7 @@ const REPLACE_THISConst = (p) => {
         button = p.createButton('click me');
         button.addClass('btn btn-secondary sketchControl');
         button.parent(REPLACE_THIS.controlsDivId);
+        //button.mousePressed(function);
 
     };
 
