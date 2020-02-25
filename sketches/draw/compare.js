@@ -194,12 +194,15 @@ const compareDrawConst = (p) => {
 
                 // When another two points, its ready for a curve
             } else if (lastPoints.length == 6) {
+                p.push();
+                p.stroke(0, 0, 255);
                 p.curve(
                     lastPoints[2].x + p.width / 4 * 3, lastPoints[2].y,
                     lastPoints[3].x + p.width / 4 * 3, lastPoints[3].y,
                     lastPoints[4].x + p.width / 4 * 3, lastPoints[4].y,
                     lastPoints[5].x + p.width / 4 * 3, lastPoints[5].y, 
                 )
+                p.pop();
 
                 var tmp1 = lastPoints[4];
                 var tmp2 = lastPoints[5];
