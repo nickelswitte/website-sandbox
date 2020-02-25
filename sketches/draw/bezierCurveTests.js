@@ -1,13 +1,13 @@
 
 /**
- * unique_id = 
+ * unique_id = crvTests1
  * This is a placeholder
  * 
  * Author:  Nickels Witte
  * Date:    13.2.2020
  * Version  1.0
  */
-const drawLinesConst = (p) => {
+const crvTests1Const = (p) => {
 
     var lastPoints;
     let slider;
@@ -19,7 +19,7 @@ const drawLinesConst = (p) => {
     p.setup = function() {
 
         var c = p.createCanvas(800, 400);
-        c.parent(test.sketchDivId);
+        c.parent(crvTests1.sketchDivId);
         p.frameRate(100);
 
         lastPoints = [];
@@ -28,26 +28,26 @@ const drawLinesConst = (p) => {
         button = p.createButton('Reset Sketch');
         button.addClass('btn btn-secondary sketchControl');
         button.mousePressed(p.resetSketch);
-        button.parent(test.controlsDivId);
+        button.parent(crvTests1.controlsDivId);
 
         slider = p.createSlider(1, 40, 2);
         slider.style('width', '10rem');
         slider.addClass('slider sketchControl');
         slider.input(p.updateStrokeWeight);
-        slider.parent(test.controlsDivId);
+        slider.parent(crvTests1.controlsDivId);
 
 
         colorPicker = p.createColorPicker(100);
         colorPicker.input(p.updateStroke);
         colorPicker.addClass('sketchControl');
-        colorPicker.parent(test.controlsDivId);
+        colorPicker.parent(crvTests1.controlsDivId);
 
         p.windowResized();
 
     };
 
     p.windowResized = function()  {
-        let div = p.select(test.sketchDivId).size();
+        let div = p.select(crvTests1.sketchDivId).size();
         p.resizeCanvas(div.width, div.width / 2);
         p.resetSketch();
     }
@@ -234,4 +234,4 @@ const drawLinesConst = (p) => {
 };
 
 //Creating the object
-let dlc = new p5(drawLinesConst);
+let crvTests1Sketch = new p5(crvTests1Const);

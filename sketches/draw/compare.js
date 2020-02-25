@@ -3,39 +3,61 @@
  * This is a template for a p5 sketch used in the sketches website by nickels witte.
  * 
  * !!! Replace all occurences of the ID below with a unique id !!!
- * UNIQUE_ID = COMPARE_DRAW
+ * UNIQUE_ID = compareDraw
  * 
  * Author:  Nickels Witte
  * Date:    
  * Version  1.0
  */
-const COMPARE_DRAWConst = (p) => {
+const compareDrawConst = (p) => {
 
+    // variables used for mouse inputs
     var mouseIncrements;
-    var mouseValue = 4;
+    var mouseFilter = 4;
 
-    // line
+    // vars used for line
     var lastPoint;
+
+    // bezier only
+    var lastPointsBezier;
     
-    // Bezier curve mix variable
+    // bezier + curve variable
     var lastPoints;
-    let lastX, lastY, lx, ly;
+
+    // inputs
+    var slider;
+    var checkbox;
     
     // Setup function
     p.setup = function() {
 
         // Create the canvas and put it inside the parent div
         var c = p.createCanvas();
-        c.parent(COMPARE_DRAW.sketchDivId);
+        c.parent(compareDraw.sketchDivId);
         // Call this method to get it to right size
         p.windowResized();
         p.resetSketch();
 
-        // Example button
+        // button
         button = p.createButton('Reset');
         button.addClass('btn btn-secondary sketchControl');
-        button.parent(COMPARE_DRAW.controlsDivId);
+        button.parent(compareDraw.controlsDivId);
         button.mousePressed(p.resetSketch);
+
+        text = p.createP('Mouse Filter');
+        text.addClass('slider sketchControl');
+        text.parent(compareDraw.controlsDivId);
+
+        slider = p.createSlider(1, 20, 4);
+        slider.style('width', '10rem');
+        slider.addClass('slider sketchControl');
+        slider.input(p.updateMouseFilter);
+        slider.parent(compareDraw.controlsDivId);
+
+        checkbox = p.createCheckbox('Points', false);
+        checkbox.addClass('slider sketchControl');
+        checkbox.parent(compareDraw.controlsDivId);
+        checkbox.changed(p.resetSketch);
 
     };
 
@@ -46,7 +68,7 @@ const COMPARE_DRAWConst = (p) => {
      */
     p.windowResized = function()  {
         // Find the parent div and get its size
-        let div = p.select(COMPARE_DRAW.sketchDivId).size();
+        let div = p.select(compareDraw.sketchDivId).size();
 
         // Resize canvas
         p.resizeCanvas(div.width, div.width / 2);
@@ -59,8 +81,11 @@ const COMPARE_DRAWConst = (p) => {
      * Function to bring the sketch back to a certain state
      */
     p.resetSketch = function() {
+        p.noFill();
+        p.background(245);
+        p.strokeWeight(2);
 
-        // line
+        // For the line
         lastPoint = {
             x: 0,
             y: 0
@@ -68,85 +93,45 @@ const COMPARE_DRAWConst = (p) => {
 
         // bezier curve mix
         lastPoints = [];
-        lastX = 0;
-        lastY = 0;
-        lx = 0;
-        ly = 0;
+        lastPointsBezier = [];
 
         mouseIncrements = 0;
-        p.background(245);
+
 
         p.push();
 
-        // draw the lines for the sections
-        p.stroke(50);
-        p.strokeWeight(0.5);
-        p.line(p.width / 3, 10, p.width / 3, p.height - 10);
-        p.line(p.width / 3 * 2, 10, p.width / 3 * 2, p.height - 10);
+        // prepare the sketch
+        p.stroke(235);
+        p.strokeWeight(4);
+        p.line(p.width / 4, 0, p.width / 4, p.height);
+        p.line(p.width / 4 * 2, 0, p.width / 4 * 2, p.height);
+        p.line(p.width / 4 * 3, 0, p.width / 4 * 3, p.height);
+        p.pop();
+
+        p.push();
+        p.noStroke();
+        p.fill(0);
+
+        p.text('Draw here', p.width / 8 - p.textWidth('Draw here') / 2, 20);
+        p.text('Lines', p.width * ( 3 / 8 ) - p.textWidth('Lines') / 2, 20);
+        p.text('Bezier', p.width * (5 / 8) - p.textWidth('Bezier') / 2, 20);
+        p.text('Bezier + Curve', p.width * (7 / 8) - p.textWidth('Bezier + Curve') / 2, 20);
 
         p.pop();
+
     };
 
-    /**
-     * This method is looped by p5
-     * Here some action can be done
-     */
-    p.draw = function() {
-        // Do something to make it move
-    }
-
-    /**
-     * Function is called when mouse is pressed
-     */
-    p.mousePressed = function() {
-        // Check if it is pressed inside the sketch
-        if (
-            (p.mouseX >= 0 && p.mouseX <= p.width) &&
-            (p.mouseY >= 0 && p.mouseY <= p.height)
-        ) {
-            // Do something
-        }
-        
-    };
-
+    
     /**
      * This function is called whenever a mouse signal gets through the filter
      */
     p.drawLine = function() {
 
-        
+        // only draw when in the left zone
         if (
-            (p.mouseX >= 10 && p.mouseX <= (p.width / 3) - 10) &&
+            (p.mouseX >= 10 && p.mouseX <= (p.width / 4) - 10) &&
             (p.mouseY >= 10 && p.mouseY <= p.height - 10)
         ) {
-            lastPoints.push(p.mouseX);
-            lastPoints.push(p.mouseY);
-
-            // Do the line
-            p.line(lastPoint.x + p.width / 3, lastPoint.y, p.mouseX + p.width / 3, p.mouseY);
-
-            lastPoint = {
-                x: p.mouseX,
-                y: p.mouseY
-            };
-
-            p.push();
-            p.noFill();
-
-            if (lastPoints.length == 8) {
-                p.bezier(lastPoints[0] + p.width / 3 * 2, lastPoints[1], lastPoints[2] + p.width / 3 * 2, lastPoints[3], lastPoints[4] + p.width / 3 * 2, lastPoints[5], lastPoints[6] + p.width / 3 * 2, lastPoints[7]);
-
-                lx = lastPoints[4];
-                ly = lastPoints[5];
-                lastX = lastPoints[6];
-                lastY = lastPoints[7];
-                
-                lastPoints = [];
-            } if (lastPoints.length == 4) {
-                p.curve(lx + p.width / 3 * 2, ly, lastX + p.width / 3 * 2, lastY, lastPoints[0] + p.width / 3 * 2, lastPoints[1], lastPoints[2] + p.width / 3 * 2, lastPoints[3]);
-            }
-
-            p.pop();
 
 
             // Draw dots for mouse input
@@ -156,32 +141,101 @@ const COMPARE_DRAWConst = (p) => {
             p.stroke('red');
             
             p.point(p.mouseX, p.mouseY);
-            p.point(p.mouseX + p.width / 3, p.mouseY);
-            p.point(p.mouseX + p.width / 3 * 2, p.mouseY);
 
+            // if wished, draw them for the other zones
+            if (checkbox.checked()) {
+
+                p.point(p.mouseX + p.width / 4 * 1, p.mouseY);
+                p.point(p.mouseX + p.width / 4 * 2, p.mouseY);
+                p.point(p.mouseX + p.width / 4 * 3, p.mouseY);
+            }
+            
             p.pop();
+            
 
-        }
+            // Do the line
+            if (lastPoint.x != 0 && lastPoint.y != 0) {
+                p.line(lastPoint.x + p.width / 4, lastPoint.y, p.mouseX + p.width / 4, p.mouseY);
+            }
 
-                
+            // Save the last used point
+            lastPoint.x = p.mouseX;
+            lastPoint.y = p.mouseY;
+
+
+            // bezier only
+            lastPointsBezier.push({x: p.mouseX, y: p.mouseY});
+            if (lastPointsBezier.length == 4) {
+                p.bezier(
+                    lastPointsBezier[0].x + p.width / 4 * 2, lastPointsBezier[0].y,
+                    lastPointsBezier[1].x + p.width / 4 * 2, lastPointsBezier[1].y,
+                    lastPointsBezier[2].x + p.width / 4 * 2, lastPointsBezier[2].y,
+                    lastPointsBezier[3].x + p.width / 4 * 2, lastPointsBezier[3].y, 
+                );
+
+                var tmp = lastPointsBezier[3];
+                lastPointsBezier = [];
+                lastPointsBezier[0] = tmp;
+            }
+
+
+            // bezier + curve
+            // push the current point to the points array
+            lastPoints.push({x: p.mouseX, y: p.mouseY});
+
+            // When length == 4, its ready for a bezier curve
+            if (lastPoints.length == 4) {
+                p.bezier(
+                    lastPoints[0].x + p.width / 4 * 3, lastPoints[0].y,
+                    lastPoints[1].x + p.width / 4 * 3, lastPoints[1].y,
+                    lastPoints[2].x + p.width / 4 * 3, lastPoints[2].y,
+                    lastPoints[3].x + p.width / 4 * 3, lastPoints[3].y, 
+                );
+
+                // When another two points, its ready for a curve
+            } else if (lastPoints.length == 6) {
+                p.curve(
+                    lastPoints[2].x + p.width / 4 * 3, lastPoints[2].y,
+                    lastPoints[3].x + p.width / 4 * 3, lastPoints[3].y,
+                    lastPoints[4].x + p.width / 4 * 3, lastPoints[4].y,
+                    lastPoints[5].x + p.width / 4 * 3, lastPoints[5].y, 
+                )
+
+                var tmp1 = lastPoints[4];
+                var tmp2 = lastPoints[5];
+
+                lastPoints = [];
+                lastPoints[0] = tmp1;
+                lastPoints[1] = tmp2;
+            }
+
+            
+        }       
     }
 
     /**
-     * When mouse is dragged, draw the line
+     * Only draw the line when mouse filter passes
      */
     p.mouseDragged = function() {       
         mouseIncrements += 1;
 
-        if (mouseIncrements == mouseValue) {
+        if (mouseIncrements == mouseFilter) {
             p.drawLine();
         }
 
-        if (mouseIncrements == mouseValue) {
+        if (mouseIncrements == mouseFilter) {
             mouseIncrements = 0;
         }
     };
 
+    p.updateMouseFilter = function() {
+        mouseFilter = slider.value();
+        p.resetSketch();
+    }
+
+    
+
 };
 
 //Creating the sketch object from the constant
-let COMPARE_DRAWSketch = new p5(COMPARE_DRAWConst);
+let compareDrawSketch = new p5(compareDrawConst);

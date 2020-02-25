@@ -56,8 +56,11 @@
 
             if ($viewLevel == 1) {
                 // Show normal sketches + placeholders
-                $sql = $sql . ' WHERE (hidden IS NULL OR hidden LIKE "placeholder")';
+                $sql = $sql . ' WHERE (hidden IS NULL OR hidden LIKE "series")';
             } else if ($viewLevel == 2) {
+                // Show all sketches (normal + placeholder + hidden)
+                $sql = $sql . ' WHERE (hidden IS NULL OR hidden LIKE "series" OR hidden LIKE "placeholder")';
+            } else if ($viewLevel == 3) {
                 // Show all sketches (normal + placeholder + hidden)
                 $sql = $sql . ' WHERE (TRUE)';
             } else {
