@@ -38,6 +38,8 @@
             $this->dbConnector->deconstruct();
         }
 
+        
+
         /**
          * This will return the basic select statement for the sketches
          * $select will be inserted into the colum part of the statement and specifies what to return
@@ -45,14 +47,21 @@
          * 
          * The returned statement will always use a WHERE
          */
-        private function getSqlString($select) {
+        private function getSqlString($select, $viewLevelInput) {
 
             global $variablesTable;
 
             $sql =  'SELECT ' . $select . ' FROM ' . $this->sketchesTableName;        
 
-            // modify the query depending on the viewlevel setting
-            $viewLevel = $variablesTable->getSketchViewLevel();
+            // When no specific viewlevel is requested, select the one from database
+            if (is_null($viewLevelInput)) {
+                
+                // modify the query depending on the viewlevel setting
+                $viewLevel = $variablesTable->getSketchViewLevel();
+            } else {
+                $viewLevel = $viewLevelInput;
+                
+            }
 
             if ($viewLevel == 1) {
                 // Show normal sketches + placeholders
@@ -93,7 +102,7 @@
 
             $query = "%" . $query . "%";
 
-            $sql = $this->getSqlString('*');
+            $sql = $this->getSqlString('*', null);
 
             $sql = $sql . ' AND (name LIKE ? OR description LIKE ? OR series LIKE ?) ORDER BY timestamp DESC';
 
@@ -124,7 +133,7 @@
         public function getNext($offset, $limit, $resultType) {
 
             // Get start of query
-            $sql = $this->getSqlString('*');
+            $sql = $this->getSqlString('*', null);
 
             // Finish the statement for ordering
             $sql = $sql . ' ORDER BY timestamp DESC LIMIT ?,?';
@@ -159,6 +168,7 @@
          * 
          */
         public function getPathsForSketches($sketchIds) {
+            
             // Get the first part of the SQL string
             $sql = $this->getSqlJoinString('sketches.sketchId, paths.pathId, path') . ' WHERE';
 
@@ -183,6 +193,8 @@
                 // echo var_dump($result->fetch_all(MYSQLI_ASSOC));
                 // return $result->fetch_all();
                 // return $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                echo "SQL Statement not accepted";
             }
 
             // Transform the array from database to a more usable array for later use
@@ -221,7 +233,7 @@
          */
         public function getCount() {
 
-            $sql = $this->getSqlString('COUNT(*)');
+            $sql = $this->getSqlString('COUNT(*)', null);
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
@@ -235,8 +247,8 @@
             }
         }
 
-        public function checkIfSketchExists($sketchId) {
-            $sql = $this->getSqlString('COUNT(*)');
+        public function checkIfSketchExists($sketchId, $viewLevel) {
+            $sql = $this->getSqlString('COUNT(*)', $viewLevel);
 
             // Finish the statement
             $sql = $sql . ' AND sketchId = ?';
@@ -281,9 +293,9 @@
             return $maxPage;
         }
 
-        public function getSingleSketchUsingId($sketchId) {
+        public function getSingleSketchUsingId($sketchId, $viewLevel) {
             // Get start of query
-            $sql = $this->getSqlString('*');
+            $sql = $this->getSqlString('*', $viewLevel);
 
             // Finish the statement
             $sql = $sql . ' AND sketchId = ?';
@@ -300,9 +312,10 @@
 
                 // Put this in an array so it works with all other functions
                 $array = array();
-                $array[0] = $result->fetch_assoc();
+                // $array[0] = $result->fetch_assoc();
 
-                return $array;
+                // return $array;
+                return $result->fetch_assoc();
 
             }
         }

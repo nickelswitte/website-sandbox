@@ -1,4 +1,12 @@
 <?php
+
+    $VIEW_LEVEL = array();
+
+    $VIEW_LEVEL['DEFAULT'] = 0;
+    $VIEW_LEVEL['SERIES'] = 1;
+    $VIEW_LEVEL['PLACEHOLDER'] = 2;
+    $VIEW_LEVEL['HIDDEN'] = 3;
+
     /**
      * This file contains functions that will be used across many sites again
      * and are related to sketches

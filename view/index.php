@@ -14,10 +14,11 @@
 	// Save
     $sketchIdFromUrl = decodeHash($_GET['s']);
 
-    if (!$sketchesTable->checkIfSketchExists($sketchIdFromUrl)){
+    if (!$sketchesTable->checkIfSketchExists($sketchIdFromUrl, $VIEW_LEVEL['SERIES'])){
         echo '<p class="text-muted">Sorry, there was no sketch found with that ID</p>';
     } else {
-        $result = $sketchesTable->getSingleSketchUsingId($sketchIdFromUrl);
+        $result = array();
+        $result[0] = $sketchesTable->getSingleSketchUsingId($sketchIdFromUrl, $VIEW_LEVEL['SERIES']);
         
         echo '<p class="text-muted"> Showing Sketch "' . $result[0]['name'] . '"</p>';
         generateSketchDivs($result, $root);
@@ -38,12 +39,12 @@
                 </div>
 
                 <div id="collapseOne" class="collapse hidden" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
+                    <div class="card-body" style="padding: 0px;">
                         <?php
                             
                             // Print syntax highlighting for each file
                             for ($i = 0; $i < count($pathsOfSketch[$sketchIdFromUrl]); $i++) {
-                                echo '<pre class="line-numbers" style="width: 100%;"><code class="language-javascript">';
+                                echo '<pre class="line-numbers" style="width: 100%; margin: 0px;"><code class="language-javascript">';
                                 // echo $root . $pathsOfSketch[$sketchIdFromUrl][$i];
                                 readfile($root . $pathsOfSketch[$sketchIdFromUrl][$i]);
                                 echo '</code></pre>';

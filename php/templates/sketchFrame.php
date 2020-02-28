@@ -4,11 +4,15 @@
         
         <div class="card-body">
             <h3 class="card-title"><a class="h1link" href="<?php echo getRootURL() . 'view/?s=' . encodeHash($sketch['sketchId']) ?>"><?php echo $sketch['name'] ?></a></h3>
+            
             <?php
                 // Add series if one has been set
                 if ($sketch['series'] != null)
                 echo 'Series: ' . $sketch['series'];
             ?>
+
+            <br>
+            <a href="#" class="badge badge-dark">Dark</a>
             
             <!--<h6 class="card-subtitle mb-2 text-muted">Additional information in a subtitle</h6>-->
             
