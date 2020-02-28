@@ -38,6 +38,7 @@ const crvTestsConst = (p) => {
         button.mousePressed(p.resetSketch);
 
         var text1 = p.createP('Number of Points:');
+        text1.addClass('sketchControl');
         text1.parent(crvTests.controlsDivId);
 
         slider = p.createSlider(7, 100, 20);
@@ -47,11 +48,12 @@ const crvTestsConst = (p) => {
         slider.parent(crvTests.controlsDivId);
 
         var text2 = p.createP('Disturbance:');
+        text2.addClass('sketchControl');
         text2.parent(crvTests.controlsDivId);
 
         slider2 = p.createSlider(0, 100, 45);
         slider2.style('width', '10rem');
-        slider2.addClass('slider sketchControl');
+        slider2.addClass('sketchControl');
         slider2.input(p.updateJitter);
         slider2.parent(crvTests.controlsDivId);
 

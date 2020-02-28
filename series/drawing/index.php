@@ -21,7 +21,7 @@
 
     <?php
 
-        // TODO need of privilige of series sketches
+        
         $result[0] = $sketchesTable->getSingleSketchUsingId(16, $VIEW_LEVEL['SERIES']);
         $sketch = $result[0];
 
@@ -38,12 +38,18 @@
 
     <?php
 
-        // TODO need of privilige of series sketches
-        $result[1] = $sketchesTable->getSingleSketchUsingId(15, $VIEW_LEVEL['SERIES']);
-        $sketch = $result[1];
-
         
+        $result[1] = $sketchesTable->getSingleSketchUsingId(14, $VIEW_LEVEL['SERIES']);
+        $sketch = $result[1];
+        include $root . 'php/templates/sketchFrameMinimized.php';
 
+
+        $result[2] = $sketchesTable->getSingleSketchUsingId(15, $VIEW_LEVEL['SERIES']);
+        $sketch = $result[2];
+        include $root . 'php/templates/sketchFrameMinimized.php';
+
+        $result[3] = $sketchesTable->getSingleSketchUsingId(13, $VIEW_LEVEL['SERIES']);
+        $sketch = $result[3];
         include $root . 'php/templates/sketchFrameMinimized.php';
 
         

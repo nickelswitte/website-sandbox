@@ -21,12 +21,21 @@ html, body {
     height: auto;
 }
 
-.sketchControlDiv {
-    /* Things will surely come */
+.sketchControlDiv > * {
+    /* This will space the children */
+    margin: 0 1.5rem 0 0;
+}
+
+.sketchControlDiv > p {
+    white-space: nowrap;
+}
+
+.sketchControlDiv > div > label {
+    margin-left: 0.33rem;
 }
 
 .sketchControl {
-    margin: 0 0.5rem 0 0;
+    
 }
 
 .h1link {
