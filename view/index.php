@@ -20,7 +20,7 @@
         $result = array();
         $result[0] = $sketchesTable->getSingleSketchUsingId($sketchIdFromUrl, $VIEW_LEVEL['SERIES']);
         
-        echo '<p class="text-muted"> Showing Sketch "' . $result[0]['name'] . '"</p>';
+        // echo '<p class="text-muted"> Showing Sketch "' . $result[0]['sketchName'] . '"</p>';
         generateSketchDivs($result, $root);
 
         // Get paths of sketch

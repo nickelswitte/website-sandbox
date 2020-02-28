@@ -17,6 +17,14 @@
         private $pathsTableName = "paths";
         private $pathsPrimaryKey = "pathId";
         private $relSketchPathTableName = "relSketchPath";
+        private $seriesTableName = "series";
+        private $seriesPrimaryKey = "seriesId";
+
+        /**
+         * This is the string that describes the column names of the sketches table
+         */
+        private $sketchesColumns = 'sketchId, sketches.name as sketchName, sketches.description as sketchDescription' .
+        ', inputKeys, hasControls, timestamp, hidden, variableName, sketches.seriesId, series.name as seriesName, series.path as seriesPath' .', series.description as seriesDescription';
 
         // Result strings
         private $assoc = "ASSOC";
@@ -51,7 +59,9 @@
 
             global $variablesTable;
 
-            $sql =  'SELECT ' . $select . ' FROM ' . $this->sketchesTableName;        
+            $sql =  'SELECT ' . $select . ' FROM ' . $this->sketchesTableName . 
+            ' LEFT JOIN ' . $this->seriesTableName . ' ON ' . $this->sketchesTableName . '.' . $this->seriesPrimaryKey .
+            ' = ' . $this->seriesTableName . '.' . $this->seriesPrimaryKey;        
 
             // When no specific viewlevel is requested, select the one from database
             if (is_null($viewLevelInput)) {
@@ -102,9 +112,11 @@
 
             $query = "%" . $query . "%";
 
-            $sql = $this->getSqlString('*', null);
+            $sql = $this->getSqlString($this->sketchesColumns, null);
 
-            $sql = $sql . ' AND (name LIKE ? OR description LIKE ? OR series LIKE ?) ORDER BY timestamp DESC';
+            $sql = $sql . ' AND (sketches.name LIKE ? OR sketches.description LIKE ? OR series.name LIKE ?) ORDER BY timestamp DESC';
+
+            // echo $sql;
 
             // If prepare is successful
             if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
@@ -122,6 +134,8 @@
                 } else if ($resultType == $this->assoc) {
                     return $result->fetch_all(MYSQLI_ASSOC);
                 }
+            } else {
+                echo "Sql statement failed preparing";
             }
         }
 
@@ -133,7 +147,7 @@
         public function getNext($offset, $limit, $resultType) {
 
             // Get start of query
-            $sql = $this->getSqlString('*', null);
+            $sql = $this->getSqlString($this->sketchesColumns, null);
 
             // Finish the statement for ordering
             $sql = $sql . ' ORDER BY timestamp DESC LIMIT ?,?';
@@ -295,7 +309,7 @@
 
         public function getSingleSketchUsingId($sketchId, $viewLevel) {
             // Get start of query
-            $sql = $this->getSqlString('*', $viewLevel);
+            $sql = $this->getSqlString($this->sketchesColumns, $viewLevel);
 
             // Finish the statement
             $sql = $sql . ' AND sketchId = ?';
@@ -316,6 +330,31 @@
 
                 // return $array;
                 return $result->fetch_assoc();
+
+            }
+        }
+
+        public function getAllSeries() {
+            
+            $sql = 'SELECT * FROM ' . $this->seriesTableName . ' ORDER BY name ASC';  
+
+
+            // If prepare is successful
+            if ($stmt = $this->dbConnector->getMysqli()->prepare($sql)) {
+                
+                // Bind the parameters to it
+                // $stmt->bind_param('s', $sketchId);
+
+                $stmt->execute();
+
+                $result = $stmt->get_result();
+
+                // Put this in an array so it works with all other functions
+                // $array = array();
+                // $array[0] = $result->fetch_assoc();
+
+                // return $array;
+                return $result->fetch_all(MYSQLI_ASSOC);
 
             }
         }

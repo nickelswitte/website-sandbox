@@ -2,25 +2,13 @@
  
     <div id="<?php echo $sketch['variableName'] ?>" class="card-img-top bg-light"></div>
         
-    <div class="card-body text-muted bg-light">
-
-        <!-- 
-        <div class="row align-items-center justify-content-start my-auto">
-                <div class="col-4">
-                    <h3><a class="h1link" href="<?php echo getRootURL() . 'view/?s=' . encodeHash($sketch['sketchId']) ?>"><?php echo $sketch['name'] ?></a></h3>
-                </div>
-                <div class="col-4 my-auto">
-                <?php echo $sketch['inputKeys'] ?>
-                </div>
-                
-            </div>
-
-        -->            
+    <div class="card-body text-muted bg-light">         
 
         <div class="container">
             <div class="row align-items-center justify-content-start my-auto">
                 <div class="col-sm">
-                    <h3><a class="h1link" href="<?php echo getRootURL() . 'view/?s=' . encodeHash($sketch['sketchId']) ?>"><?php echo $sketch['name'] ?></a></h3>
+                    <h3><a class="delink"  target="_blank" rel="noopener noreferrer" href="<?php echo getRootURL() . 'view/?s=' . 
+                    encodeHash($sketch['sketchId']) ?>"><?php echo $sketch['sketchName'] ?></a></h3>
                     <?php echo $sketch['inputKeys'] ?>
                 </div>
                 <?php

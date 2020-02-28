@@ -22,6 +22,8 @@
 	// Get result rows
 	$result = $sketchesTable->search($query, "ASSOC");
 
+	// echo var_dump($result);
+
 	// Give a little feedback, when nothing was found
 	if ($result == NULL) {
 		echo '<p class="text-muted"> - No results found</p>';

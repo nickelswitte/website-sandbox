@@ -7,7 +7,7 @@
     
     <?php
 
-        if (isset($result)) {
+        if (isset($result) && !empty($result)) {
             // Create all the script tags to all the sketches
             createSketchScriptTags(getSketchIdsFromResult($result), $root);
             generateJavascriptVariablesForSketch($result);

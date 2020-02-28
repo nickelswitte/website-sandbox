@@ -33,7 +33,6 @@
 	<body>
 
         <?php
-			include_once 'navbar.php';
 
 			// Open connection to sketches table
 			include_once $root . 'php/databaseConnection/sketchesTable.php';
@@ -46,6 +45,8 @@
 			
 			// Include the sketch utils
 			include_once $root . 'php/sketchUtils.php';
+
+			include_once 'navbar.php';
         ?>
 
 		<div class="container mainBody" id="container">

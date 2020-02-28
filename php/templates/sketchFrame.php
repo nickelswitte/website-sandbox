@@ -3,17 +3,20 @@
         <div id="<?php echo $sketch['variableName'] ?>" class="card-img-top"></div>
         
         <div class="card-body">
-            <h3 class="card-title"><a class="h1link" href="<?php echo getRootURL() . 'view/?s=' . encodeHash($sketch['sketchId']) ?>"><?php echo $sketch['name'] ?></a></h3>
+            <h3 class="card-title"><a class="delink"  target="_blank" rel="noopener noreferrer" href="<?php echo getRootURL() . 'view/?s=' . encodeHash($sketch['sketchId']) ?>"><?php echo $sketch['sketchName'] ?></a></h3>
             
             <?php
                 // Add series if one has been set
-                if ($sketch['series'] != null)
-                echo 'Series: ' . $sketch['series'];
+                if ($sketch['seriesId'] != null)
+                echo 'Series: ';
+                echo '<a class="delink"  target="_blank" rel="noopener noreferrer" href="' . 
+                getRootURL() . $sketch['seriesPath'] . '">' . $sketch['seriesName'] . '</a>';
             ?>
 
-            <br>
-            <a href="#" class="badge badge-dark">Dark</a>
-            
+            <!--
+                <br>
+                <a href="#" class="badge badge-dark">Dark</a>
+            -->
             <!--<h6 class="card-subtitle mb-2 text-muted">Additional information in a subtitle</h6>-->
             
         </div>
@@ -35,7 +38,7 @@
 
             <li class="list-group-item">
                 <strong>About the sketch:</strong>
-                <p class="card-text"><?php echo $sketch['description'] ?></p>
+                <p class="card-text"><?php echo $sketch['sketchDescription'] ?></p>
 
                 <p>
                     <?php echo $sketch['inputKeys'] ?>
