@@ -27,7 +27,7 @@
                     ?>
                         <li class="list-group-item">
                             <h6 class="card-subtitle mb-2 text-muted">Inputs from sketch</h6>
-                            <div class="sketchControlDiv" id="<?php 
+                            <div class="row sketchControlDiv" id="<?php 
                                 global $variablesTable;
                                 echo $sketch['variableName'] . $variablesTable->getControlsDivName();
                             ?>"></div>

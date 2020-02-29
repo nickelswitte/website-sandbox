@@ -1,4 +1,19 @@
 
+
+class SketchUtils {
+    static getDivForControlElement(sketchVariable) {
+        var idOfParent = sketchVariable.controlsDivId.replace('#', '');
+        var parent = document.getElementById(idOfParent);
+        
+        var div = document.createElement('div');
+        div.classList.add('col-md');
+        parent.appendChild(div);
+        
+        return div;
+    }
+}
+
+
 /**
  * This is a template for a p5 sketch used in the sketches website by nickels witte.
  * 
@@ -38,26 +53,31 @@ const compareDrawConst = (p) => {
         p.windowResized();
         p.resetSketch();
 
+        
         // button
         button = p.createButton('Reset');
         button.addClass('btn btn-secondary sketchControl');
-        button.parent(compareDraw.controlsDivId);
         button.mousePressed(p.resetSketch);
+        button.parent(SketchUtils.getDivForControlElement(compareDraw));
+
+        var parentDiv = SketchUtils.getDivForControlElement(compareDraw);
 
         text = p.createP('Mouse Filter');
         text.addClass('slider sketchControl');
-        text.parent(compareDraw.controlsDivId);
+        text.parent(parentDiv);
 
         slider = p.createSlider(1, 20, 4);
-        slider.style('width', '10rem');
+        slider.style('width', '6rem');
         slider.addClass('slider sketchControl');
         slider.input(p.updateMouseFilter);
-        slider.parent(compareDraw.controlsDivId);
+        // slider.parent(compareDraw.controlsDivId);
+        slider.parent(parentDiv);
 
         checkbox = p.createCheckbox('Points', false);
         checkbox.addClass('slider sketchControl');
-        checkbox.parent(compareDraw.controlsDivId);
+        // checkbox.parent(compareDraw.controlsDivId);
         checkbox.changed(p.resetSketch);
+        checkbox.parent(SketchUtils.getDivForControlElement(compareDraw));
 
     };
 

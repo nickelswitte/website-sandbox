@@ -5,8 +5,8 @@
     <div class="card-body text-muted bg-light">         
 
         <div class="container">
-            <div class="row align-items-center justify-content-start my-auto">
-                <div class="col-sm">
+            <div class="row align-items-center my-auto">
+                <div class="col-5">
                     <h3><a class="delink"  target="_blank" rel="noopener noreferrer" href="<?php echo getRootURL() . 'view/?s=' . 
                     encodeHash($sketch['sketchId']) ?>"><?php echo $sketch['sketchName'] ?></a></h3>
                     <?php echo $sketch['inputKeys'] ?>
@@ -14,9 +14,9 @@
                 <?php
                     if ($sketch['hasControls'] == True) {
                 ?>
-                <div class="col-sm my-auto">
+                <div class="col-7 my-auto">
                     <h6 class="card-subtitle mb-2 text-muted">Input</h6>
-                    <div class="d-flex align-items-center my-auto sketchControlDiv" id="<?php 
+                    <div class="row sketchControlDiv" id="<?php 
                         global $variablesTable;
                         echo $sketch['variableName'] . $variablesTable->getControlsDivName();?>">
                     </div>
